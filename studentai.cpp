@@ -84,8 +84,10 @@ void readData(int &n, Student *& students)
     {
       size = (std::rand() % 11);
     }
-
-    std::cout << "Iveskite namu darbu rezultatus, kai baigsite iveskite -1 arba kita neigiama skaiciu: " << std::endl;
+    else 
+    {
+      std::cout << "Iveskite namu darbu rezultatus, kai baigsite iveskite -1 arba kita neigiama skaiciu: " << std::endl;
+    }
     int j = 0;
     int result;
     do

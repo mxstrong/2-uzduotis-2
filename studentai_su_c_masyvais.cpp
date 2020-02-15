@@ -9,8 +9,8 @@ struct Student
 {
   int homeworkCount = 0, *homeworkResults, examResult;
   std::string name, surname;
-  // Calculate average
 
+  // Calculate average
   float getFinalMark()
   {
     int totalSum = 0;
@@ -18,8 +18,9 @@ struct Student
     {
       totalSum += homeworkResults[i];
     }
-    return ((float)totalSum / (homeworkCount) * 0.4) + 0.6 * examResult;
+    return (((float)totalSum / homeworkCount) * 0.4) + 0.6 * examResult;
   }
+
   // Calculate median if it was choosen over average
   float getFinalMark(bool median) 
   {
@@ -35,6 +36,7 @@ struct Student
     }
     int j = homeworkCount;
     homeworkResults[j] = examResult;
+    homeworkCount++;
     while(j > 0 && homeworkResults[j] < homeworkResults[j - 1])
     {
       std::swap(homeworkResults[j], homeworkResults[j - 1]);
@@ -51,7 +53,15 @@ struct Student
   }
 };
 
-void readData(int &n, Student *& students) 
+void resizeArray(int* array, int oldSize, int newSize) 
+{
+  int *oldResults = NULL;
+  std::copy(array, array + oldSize - 1, oldResults);     
+  array = new int[newSize];
+  std::copy(oldResults, oldResults + oldSize - 1, array);
+}
+
+void readData(int &n, Student *&students) 
 {
   std::cout << "Iveskite studentu kieki: " << std::endl;
   std::cin >> n;
@@ -80,11 +90,14 @@ void readData(int &n, Student *& students)
     int size = 10;
     if (randomly) 
     {
-      size = (std::rand() % 11);
+      size = std::rand() % 11 + 1;
+      students[i].homeworkResults = new int[size + 1];
     }
-
-    students[i].homeworkResults = new int[size];
-    std::cout << "Iveskite namu darbu rezultatus, kai baigsite iveskite -1 arba kita neigiama skaiciu: " << std::endl;
+    else
+    {
+      students[i].homeworkResults = new int[size];
+      std::cout << "Iveskite namu darbu rezultatus, kai baigsite iveskite -1 arba kita neigiama skaiciu: " << std::endl;
+    }
     int j = 0;
     int result;
     do
@@ -99,23 +112,18 @@ void readData(int &n, Student *& students)
         std::cin >> result;
       }
       if (result >= 0) {
-        if (j >= size) {
-          if (randomly) 
-          {
+        if (j >= size - 1) {
+          if (randomly) {
             break;
           }
-          int *oldResults = NULL;
-          std::copy(students[i].homeworkResults, students[i].homeworkResults + size - 1, oldResults);
-          
-          students[i].homeworkResults = new int[size + 10];
-          std::copy(oldResults, oldResults + size - 1, students[i].homeworkResults);
+          resizeArray(students[i].homeworkResults, size, size + 10);
           size += 10;
         }
         students[i].homeworkResults[j] = result;
       }
       j++;
     } while (result >= 0);
-    students[i].homeworkCount = j + 1;
+    students[i].homeworkCount = j;
     if (randomly) 
     {
       students[i].examResult = std::rand() % 11;
