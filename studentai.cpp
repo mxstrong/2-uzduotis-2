@@ -4,26 +4,28 @@
 #include <algorithm>
 #include <iterator>
 #include <random>
+#include <vector>
 
 struct Student 
 {
-  int homeworkCount = 0, *homeworkResults, examResult;
+  int examResult;
+  std::vector<int> homeworkResults;
   std::string name, surname;
   // Calculate average
 
   float getFinalMark()
   {
     int totalSum = 0;
-    for (int i = 0; i < homeworkCount; i++) 
+    for (auto result : homeworkResults) 
     {
-      totalSum += homeworkResults[i];
+      totalSum += result;
     }
-    return ((float)totalSum / (homeworkCount) * 0.4) + 0.6 * examResult;
+    return ((float)totalSum / (homeworkResults.size()) * 0.4) + 0.6 * examResult;
   }
   // Calculate median if it was choosen over average
   float getFinalMark(bool median) 
   {
-    for (int i = 1; i < homeworkCount; i++)
+    for (int i = 1; i < homeworkResults.size(); i++)
     {
       int j = i;
       while(j > 0 && homeworkResults[j] < homeworkResults[j - 1])
@@ -31,22 +33,22 @@ struct Student
         std::swap(homeworkResults[j], homeworkResults[j - 1]);
         j--;
       }
-      j = homeworkCount;
+      j = homeworkResults.size();
     }
-    int j = homeworkCount;
-    homeworkResults[j] = examResult;
+    homeworkResults.push_back(examResult);
+    int j = homeworkResults.size() - 1;
     while(j > 0 && homeworkResults[j] < homeworkResults[j - 1])
     {
       std::swap(homeworkResults[j], homeworkResults[j - 1]);
       j--;
     }
-    if (homeworkCount % 2 == 0) 
+    if (homeworkResults.size() % 2 == 0) 
     {
-      return homeworkResults[((homeworkCount + 1) / 2)];
+      return (float(homeworkResults[(homeworkResults.size() / 2) - 1] + homeworkResults[(homeworkResults.size() / 2)])) / 2;
     }
     else 
     {
-      return (float(homeworkResults[((homeworkCount + 1) / 2) - 1] + homeworkResults[((homeworkCount + 1) / 2)])) / 2;
+      return homeworkResults[homeworkResults.size() / 2];
     }
   }
 };
@@ -77,13 +79,12 @@ void readData(int &n, Student *& students)
       }
     } while (!(input == "Taip" || input == "Ne"));
 
-    int size = 10;
+    int size = 0;
     if (randomly) 
     {
       size = (std::rand() % 11);
     }
 
-    students[i].homeworkResults = new int[size];
     std::cout << "Iveskite namu darbu rezultatus, kai baigsite iveskite -1 arba kita neigiama skaiciu: " << std::endl;
     int j = 0;
     int result;
@@ -99,23 +100,10 @@ void readData(int &n, Student *& students)
         std::cin >> result;
       }
       if (result >= 0) {
-        if (j >= size) {
-          if (randomly) 
-          {
-            break;
-          }
-          int *oldResults = NULL;
-          std::copy(students[i].homeworkResults, students[i].homeworkResults + size - 1, oldResults);
-          
-          students[i].homeworkResults = new int[size + 10];
-          std::copy(oldResults, oldResults + size - 1, students[i].homeworkResults);
-          size += 10;
-        }
-        students[i].homeworkResults[j] = result;
+        students[i].homeworkResults.push_back(result);
       }
       j++;
-    } while (result >= 0);
-    students[i].homeworkCount = j + 1;
+    } while (result >= 0 && !(randomly && j >= size));
     if (randomly) 
     {
       students[i].examResult = std::rand() % 11;
@@ -141,7 +129,6 @@ void printResults(int n, Student *students)
     std::cout << "Pasirinkite galutini bala (vidurkis ar mediana)" << std::endl;
     std::cin >> final;
     badInput = !(final.compare("vidurkis") == 0 || final.compare("mediana") == 0);
-    std::cout << badInput << std::endl;
   } while (badInput);
   std::cout << std::left 
             << std::setw(12) << "Vardas" 
