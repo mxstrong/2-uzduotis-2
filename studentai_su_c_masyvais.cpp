@@ -10,6 +10,10 @@ struct Student
   int homeworkCount = 0, *homeworkResults, examResult;
   std::string name, surname;
 
+  ~Student() 
+  {
+    delete [] homeworkResults;
+  }
   // Calculate average
   float getFinalMark()
   {
@@ -56,9 +60,10 @@ struct Student
 void resizeArray(int* array, int oldSize, int newSize) 
 {
   int *oldResults = NULL;
-  std::copy(array, array + oldSize - 1, oldResults);     
+  std::copy(array, array + oldSize - 1, oldResults);
   array = new int[newSize];
   std::copy(oldResults, oldResults + oldSize - 1, array);
+  delete [] oldResults;
 }
 
 void readData(int &n, Student *&students) 
@@ -177,5 +182,6 @@ int main()
   Student *students;
   readData(n, students);
   printResults(n, students);
+  delete [] students;
   return 0;
 }
