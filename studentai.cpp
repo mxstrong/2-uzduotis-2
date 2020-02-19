@@ -52,14 +52,15 @@ struct Student
     }
   }
 };
-
-void readData(int &n, Student *& students) 
+// Read data from console input
+void readData(int &n, std::vector<Student>& students) 
 {
   std::cout << "Iveskite studentu kieki: " << std::endl;
   std::cin >> n;
-  students = new Student[n];
   for (int i = 0; i < n; i++) 
   {
+    Student student;
+    students.push_back(student);
     std::cout << "Iveskite studento varda: " << std::endl;
     std::cin >> students[i].name;
     std::cout << "Iveskite studento pavarde: " << std::endl;
@@ -119,7 +120,7 @@ void readData(int &n, Student *& students)
   }
 }
 
-void printResults(int n, Student *students)
+void printResults(int n, std::vector<Student> students)
 {
   std::string final = "";
   bool badInput = false;
@@ -156,7 +157,7 @@ int main()
 {
   std::srand(time(NULL));
   int n;
-  Student *students;
+  std::vector<Student> students;
   readData(n, students);
   printResults(n, students);
   return 0;
