@@ -8,56 +8,70 @@
 #include <random>
 #include <vector>
 #include <filesystem>
+#include <chrono>
 
 struct Student 
 {
-  int examResult;
+  int examResult = 0;
   std::vector<int> homeworkResults;
   std::string name, surname;
   // Calculate average
 
-  float getFinalMark()
+  float getAverage()
   {
     int totalSum = 0;
     for (auto result : homeworkResults) 
     {
       totalSum += result;
     }
+    if (homeworkResults.size() == 0)
+    {
+      return 0.6 * examResult;
+    }
     return ((float)totalSum / (homeworkResults.size()) * 0.4) + 0.6 * examResult;
   }
   // Calculate median if it was choosen over average
-  float getFinalMark(bool median) 
+  float getMedian() 
   {
-    for (int i = 1; i < homeworkResults.size(); i++)
+    if (homeworkResults.size() == 0)
     {
-      int j = i;
-      while(j > 0 && homeworkResults[j] < homeworkResults[j - 1])
-      {
-        std::swap(homeworkResults[j], homeworkResults[j - 1]);
-        j--;
-      }
-      j = homeworkResults.size();
+      return 0;
     }
-    homeworkResults.push_back(examResult);
-    int j = homeworkResults.size() - 1;
-    while(j > 0 && homeworkResults[j] < homeworkResults[j - 1])
-    {
-      std::swap(homeworkResults[j], homeworkResults[j - 1]);
-      j--;
-    }
+    std::sort(homeworkResults.begin(), homeworkResults.end());
     if (homeworkResults.size() % 2 == 0) 
     {
       return (float(homeworkResults[(homeworkResults.size() / 2) - 1] + homeworkResults[(homeworkResults.size() / 2)])) / 2;
     }
     else 
     {
-      return homeworkResults[homeworkResults.size() / 2];
+      return homeworkResults[(int)(homeworkResults.size()) / 2];
     }
   }
 };
 
+int generateRandomInt(int lowLimit, int highLimit)
+{
+  using clock = std::chrono::high_resolution_clock;
+  std::mt19937 mt(static_cast<long unsigned int>(clock::now().time_since_epoch().count()));
+  std::uniform_int_distribution<int> dist(lowLimit, highLimit);
+  return dist(mt);
+}
+
+int calculateHomeworkCount(const std::string &input)
+{
+	int homeworkCount = 0;
+	const size_t step = 2;
+	size_t position = 0;
+	while ((position = input.find("ND", position)) != std::string::npos) {
+		position += step;
+		++homeworkCount;
+	}
+
+	return homeworkCount;
+}
+
 // Read data from console input
-void readData(int &n, std::vector<Student>& students) 
+void readDataFromInput(int &n, std::vector<Student>& students) 
 {
   std::cout << "Iveskite studentu kieki: " << std::endl;
   std::cin >> n;
@@ -69,123 +83,131 @@ void readData(int &n, std::vector<Student>& students)
     std::cin >> students[i].name;
     std::cout << "Iveskite studento pavarde: " << std::endl;
     std::cin >> students[i].surname;
-    bool randomly = false;
-    std::string input = "";
-    std::cout << "Generuoti balus atsitiktinai? (Taip arba Ne)" << std::endl;
-    do {
-      std::cin >> input;
-      if (input == "Taip") 
-      {
-        randomly = true;
-      }
-      else if (input != "Ne")
-      {
-        std::cout << "Iveskite Taip arba Ne" << std::endl;
-      }
-    } while (!(input == "Taip" || input == "Ne"));
+    std::cout << "Iveskite namu darbu rezultatus, kai baigsite iveskite -1 arba kita neigiama skaiciu: " << std::endl;
 
-    int size = 0;
-    if (randomly) 
-    {
-      size = (std::rand() % 11);
-    }
-    else 
-    {
-      std::cout << "Iveskite namu darbu rezultatus, kai baigsite iveskite -1 arba kita neigiama skaiciu: " << std::endl;
-    }
     int j = 0;
     int result;
     do
     {
-      if (randomly) 
-      {
-        result = std::rand() % 11;
-        std::cout << result << std::endl;
-      }
-      else 
-      {
-        std::cin >> result;
-      }
+      std::cin >> result;
+
       if (result >= 0) {
         students[i].homeworkResults.push_back(result);
       }
       j++;
-    } while (result >= 0 && !(randomly && j >= size));
-    if (randomly) 
-    {
-      students[i].examResult = std::rand() % 11;
-      std::cout << "Egzamino rezultatas: " << students[i].examResult << std::endl;
-    }
-    else 
-    {
-      std::cout << "Iveskite egzamino rezultata: " << std::endl;
-      std::cin >> students[i].examResult;
-    }
+    } while (result >= 0);
+ 
+     std::cout << "Iveskite egzamino rezultata: " << std::endl;
+     std::cin >> students[i].examResult;
   }
 }
 
 // Read data from file
-void readData(std::string fileName, int &n, std::vector<Student>& students)
+void readDataFromFile(std::string fileName, int &n, std::vector<Student>& students)
 {
   std::string input;
   std::ifstream f(fileName.c_str());
   std::getline(f, input);
-  int homeworkCount = std::count(input.begin(), input.end(), "ND");
+  int homeworkCount = calculateHomeworkCount(input);
   int i = 0;
   while (std::getline(f, input))
   {
+    // std::cout << i << ' ' << input << std::endl;
+    if (input.empty())
+    {
+      break;
+    }
     Student student;
-    students.push_back(student);
     std::istringstream inputStream(input);
-    inputStream >> students[i].name >> students[i].surname;
+    inputStream >> student.name >> student.surname;
     for (int j = 0; j < homeworkCount; j++)
     {
       int result;
       inputStream >> result;
-      students[i].homeworkResults.push_back(result);
+      student.homeworkResults.push_back(result);
     }
-    inputStream >> students[i].examResult;
+    inputStream >> student.examResult;
+    students.push_back(student);
     i++;
+  }
+  f.close();
+  n = i + 1;
+}
+
+void generateData(std::vector<Student>& students)
+{
+  int n = generateRandomInt(1, 100);
+  int homeworkCount = generateRandomInt(1, 20);
+  std::vector<std::string> names { "Vardenis", "Vardas", "Vardukas", "Vardiklis", "Vardonis", "Vardanas", "Vardauskas" };
+  std::vector<std::string> surnames { "Pavardenis", "Pavarde", "Pavardukas", "Pavardiklis", "Pavardonis", "Pavardanas", "Pavardauskas" };
+  for (int i = 0; i < n; i++)
+  {
+    Student student;
+    int random = generateRandomInt(0, 6);
+    student.name = names[random];
+    random = generateRandomInt(0, 6);
+    student.surname = surnames[random];
+    
+    for (int j = 0; j < homeworkCount; j++)
+    {
+      int result = generateRandomInt(0, 10);
+      std::cout << result << std::endl;
+      student.homeworkResults.push_back(result);
+    }
+
+    student.examResult = generateRandomInt(0, 10);
+    std::cout << "Egzamino rezultatas: " << student.examResult << std::endl;
+    students.push_back(student);
+  }
+  
+}
+
+bool isFirst(Student first, Student second)
+{
+  if (first.name < second.name)
+  {
+    return true;
+  }
+  else if (second.name < first.name)
+  {
+    return false;
+  }
+  else
+  {
+    return (first.surname < second.surname) ? true : false;
   }
 }
 
-void printResults(int n, std::vector<Student> students)
+void printResultsToFile(int n, std::vector<Student> students)
 {
-  std::string final = "";
-  bool badInput = false;
-  do 
+  std::ofstream res("rezultatai.txt");
+  res << std::left 
+      << std::setw(15) << "Vardas" 
+      << std::setw(17) << "Pavarde" 
+      << std::setw(17) << "Galutinis (Vid.) "
+      << std::setw(16) << "Galutinis (Med.)"
+      << std::endl;
+  for (int i = 0; i < 65; i++) 
   {
-    if (badInput) {
-      std::cout << "Pasirinkote negalima pasirinkima. Galimi pasirinkimai: vidurkis, mediana" << std::endl;
-    }
-    std::cout << "Pasirinkite galutini bala (vidurkis ar mediana)" << std::endl;
-    std::cin >> final;
-    badInput = !(final.compare("vidurkis") == 0 || final.compare("mediana") == 0);
-  } while (badInput);
-  std::cout << std::left 
-            << std::setw(12) << "Vardas" 
-            << std::setw(13) << "Pavarde" 
-            << std::setw(25) << ((final == "vidurkis") ? "Galutinis (Vid.)" : "Galutinis (Med.)")
-            << std::endl;
-  for (int i = 0; i < 50; i++) 
-  {
-    std::cout << '-';
+    res << '-';
   }
-  std::cout << std::endl;
-  for (int i = 0; i < n; i++)
+  res << std::endl;
+  std::sort(students.begin(), students.end(), isFirst);
+  for (Student student : students)
   {
-    float finalMark = (final == "vidurkis") ? students[i].getFinalMark() : students[i].getFinalMark(true);
-    std::cout << std::setw(12) << students[i].name 
-              << std::setw(13) << students[i].surname
-              << std::fixed << std::setprecision(2) << std::setw(25) << finalMark
-              << std:: endl;
+    res << std::setw(15) << student.name 
+        << std::setw(17) << student.surname
+        << std::fixed << std::setprecision(2) << std::setw(17) << student.getAverage()
+        << std::setw(16) << student.getMedian()
+        << std::endl;
   }
+  res.close();
 }
 
 int main() 
 {
   std::srand(time(NULL));
-  int n;
+  int n = 0;
   std::vector<Student> students;
   bool goodChoice = true;
   std::string choice;
@@ -196,7 +218,7 @@ int main()
     }
     std::cout << "Kaip gauti duomenis (ivesti, generuoti, skaityti(is failo))?" << std::endl;
     std::cin >> choice;
-    goodChoice = choice == "ivesti" || choice == "generuoti" || choice == "skaityti";
+    goodChoice = choice.compare("ivesti") == 0 || choice.compare("generuoti") == 0 || choice.compare("skaityti") == 0;
   } while (!goodChoice);
   if (choice == "skaityti")
   {
@@ -208,17 +230,19 @@ int main()
       if(std::filesystem::exists(fileName))
       {
         fileExists = true;
-        readData(fileName, n, students);
-        
+        readDataFromFile(fileName, n, students);
       }
     } while(!fileExists);
     
   } 
+  else if (choice == "generuoti")
+  {
+    generateData(students);
+  }
   else
   {
-    readData(n, students);
+    readDataFromInput(n, students);
   }
-  
-  printResults(n, students);
+  printResultsToFile(n, students);
   return 0;
 }
