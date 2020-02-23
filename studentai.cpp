@@ -1,10 +1,13 @@
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <iomanip>
 #include <string>
 #include <algorithm>
 #include <iterator>
 #include <random>
 #include <vector>
+#include <filesystem>
 
 struct Student 
 {
@@ -52,6 +55,7 @@ struct Student
     }
   }
 };
+
 // Read data from console input
 void readData(int &n, std::vector<Student>& students) 
 {
@@ -120,6 +124,31 @@ void readData(int &n, std::vector<Student>& students)
   }
 }
 
+// Read data from file
+void readData(std::string fileName, int &n, std::vector<Student>& students)
+{
+  std::string input;
+  std::ifstream f(fileName.c_str());
+  std::getline(f, input);
+  int homeworkCount = std::count(input.begin(), input.end(), "ND");
+  int i = 0;
+  while (std::getline(f, input))
+  {
+    Student student;
+    students.push_back(student);
+    std::istringstream inputStream(input);
+    inputStream >> students[i].name >> students[i].surname;
+    for (int j = 0; j < homeworkCount; j++)
+    {
+      int result;
+      inputStream >> result;
+      students[i].homeworkResults.push_back(result);
+    }
+    inputStream >> students[i].examResult;
+    i++;
+  }
+}
+
 void printResults(int n, std::vector<Student> students)
 {
   std::string final = "";
@@ -158,7 +187,38 @@ int main()
   std::srand(time(NULL));
   int n;
   std::vector<Student> students;
-  readData(n, students);
+  bool goodChoice = true;
+  std::string choice;
+  do {
+    if (!goodChoice)
+    {
+      std::cout << "Pasirinkimas turi buti ivesti, generuoti arba skaityti" << std::endl;
+    }
+    std::cout << "Kaip gauti duomenis (ivesti, generuoti, skaityti(is failo))?" << std::endl;
+    std::cin >> choice;
+    goodChoice = choice == "ivesti" || choice == "generuoti" || choice == "skaityti";
+  } while (!goodChoice);
+  if (choice == "skaityti")
+  {
+    bool fileExists = false;
+    do {
+      std::string fileName;
+      std::cout << "Iveskite failo varda: " << std::endl;
+      std::cin >> fileName;
+      if(std::filesystem::exists(fileName))
+      {
+        fileExists = true;
+        readData(fileName, n, students);
+        
+      }
+    } while(!fileExists);
+    
+  } 
+  else
+  {
+    readData(n, students);
+  }
+  
   printResults(n, students);
   return 0;
 }
