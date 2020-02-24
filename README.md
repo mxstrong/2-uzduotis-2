@@ -8,3 +8,5 @@ Programa atlaisvina dinamiškai paskirtą atmintį.
 Programa atnaujinta pakeičiant užsilikusius C masyvus į vektorius.
 # [Versija v0.2](https://github.com/mxstrong/2-uzduotis/releases/tag/v0.2)
 Programa gali nuskaityti duomenis ne tik iš įvesties, bet ir iš failo, arba juos sugeneruoti. Rezultatai surikiuojami pagal studentų vardus ir pavardes ir išvedami į failą.
+# [Versija v0.3](https://github.com/mxstrong/2-uzduotis/releases/tag/v0.3)
+Programa pertvarkyta į daug mažesnių kodo bei antraščių failų ir pradėtos naudoti išimtys.
