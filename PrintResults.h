@@ -1,4 +1,6 @@
 #pragma once
 #include <vector>
 #include "Student.h"
-void printResultsToFile(int n, std::vector<Student> students);
+#include <string>
+void divideStudents(std::vector<Student>& students, std::vector<Student>& goodStudents, std::vector<Student>& badStudents);
+void printResultsToFile(std::vector<Student> students, std::string fileName);

@@ -7,9 +7,9 @@ struct Student
   int examResult = 0;
   std::vector<int> homeworkResults;
   std::string name, surname;
-  // Calculate average
   float getAverage();
-  
-  // Calculate median if it was choosen over average
   float getMedian();
+
+  // Calculate final mark using either median or average of homework results as first parameter.
+  float getFinal(float homeworkResult, float examResult);
 };

@@ -92,9 +92,8 @@ void readDataFromFile(std::string fileName, int& n, std::vector<Student>& studen
   n = i + 1;
 }
 
-void generateData(std::vector<Student>& students)
+void generateData(int n, std::vector<Student>& students)
 {
-  int n = generateRandomInt(1, 100);
   int homeworkCount = generateRandomInt(1, 20);
   std::vector<std::string> names{ "Vardenis", "Vardas", "Vardukas", "Vardiklis", "Vardonis", "Vardanas", "Vardauskas" };
   std::vector<std::string> surnames{ "Pavardenis", "Pavarde", "Pavardukas", "Pavardiklis", "Pavardonis", "Pavardanas", "Pavardauskas" };
