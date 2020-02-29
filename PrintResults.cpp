@@ -21,11 +21,11 @@ bool isFirst(Student first, Student second)
   }
 }
 
-void divideStudents(std::vector<Student> &students, std::vector<Student> &goodStudents, std::vector<Student> &badStudents)
+void divideStudents(std::vector<Student> &students, std::vector<Student> &goodStudents, std::vector<Student> &badStudents, std::string final)
 {
   for (Student student : students)
   {
-    if (student.getFinal(student.getAverage(), student.examResult) >= 5)
+    if (student.getFinal((final == "vidurkis") ? student.getAverage() : student.getMedian(), student.examResult) >= 5)
     {
       goodStudents.push_back(student);
     }
@@ -36,20 +36,10 @@ void divideStudents(std::vector<Student> &students, std::vector<Student> &goodSt
   }
 }
 
-void printResultsToFile(std::vector<Student> &students, std::string fileName)
+void printResultsToFile(std::vector<Student> &students, std::string fileName, std::string final)
 {
   std::ofstream res(fileName.c_str());
-  std::string final = "";
-  bool badInput = false;
-  do
-  {
-    if (badInput) {
-      std::cout << "Pasirinkote negalima pasirinkima. Galimi pasirinkimai: vidurkis, mediana" << std::endl;
-    }
-    std::cout << "Pasirinkite galutini bala (vidurkis / mediana)" << std::endl;
-    std::cin >> final;
-    badInput = !(final.compare("vidurkis") == 0 || final.compare("mediana") == 0);
-  } while (badInput);
+  
 
   res << std::left
       << std::setw(15) << "Vardas"

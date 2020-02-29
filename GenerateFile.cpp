@@ -1,9 +1,10 @@
-#include <fstream>s
+#include <fstream>
 #include <string>
 #include <vector>
 #include <iomanip>
-#include "Student.h";
+#include "Student.h"
 #include "GenerateFile.h"
+
 void generateFile(std::string fileName, std::vector<Student> students)
 {
   std::ofstream res(fileName.c_str());

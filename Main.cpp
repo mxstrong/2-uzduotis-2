@@ -33,9 +33,9 @@ int main()
       std::cin >> fileName;
       try 
       {
-        auto start = high_resolution_clock::now();
+        auto start = steady_clock::now();
         readDataFromFile(fileName, n, students);
-        auto end = high_resolution_clock::now();
+        auto end = steady_clock::now();
         duration<double> diff = end - start;
         std::cout << "Duomenu nuskaitymas is failo uztruko: " << diff.count() << std::endl;
       } catch(std::exception &e)
@@ -55,7 +55,7 @@ int main()
   } 
   else if (choice == "generuoti")
   {
-    auto start = high_resolution_clock::now();
+    auto start = steady_clock::now();
     std::cout << "Kiek studentu sugeneruoti?" << std::endl;
     std::cin >> n;
     if (n > 0)
@@ -73,9 +73,9 @@ int main()
         std::string fileName;
         std::cout << "Iveskite generuojamo failo varda" << std::endl;
         std::cin >> fileName;
-        generateFile("Filename", students);
+        generateFile(fileName, students);
         
-        auto end = high_resolution_clock::now();
+        auto end = steady_clock::now();
         duration<double> diff = end - start;
         std::cout << "Failu generavimas uztruko: " << diff.count() << std::endl;
         return 0;
@@ -89,17 +89,30 @@ int main()
   std::vector<Student> goodStudents;
   std::vector<Student> badStudents;
 
-  auto start = high_resolution_clock::now();
-  divideStudents(students, goodStudents, badStudents);
-  auto end = high_resolution_clock::now();
+  std::string final = "";
+  bool badInput = false;
+
+  do
+  {
+    if (badInput) {
+      std::cout << "Pasirinkote negalima pasirinkima. Galimi pasirinkimai: vidurkis, mediana" << std::endl;
+    }
+    std::cout << "Pasirinkite galutini bala (vidurkis / mediana)" << std::endl;
+    std::cin >> final;
+    badInput = !(final.compare("vidurkis") == 0 || final.compare("mediana") == 0);
+  } while (badInput);
+
+  auto start = steady_clock::now();
+  divideStudents(students, goodStudents, badStudents, final);
+  auto end = steady_clock::now();
   duration<double> diff = end - start;
   std::cout << "Studentu dalijimas uztruko: " << diff.count() << std::endl;
 
-  auto start = high_resolution_clock::now();
-  printResultsToFile(goodStudents, "pazangus.txt");
-  printResultsToFile(badStudents, "nepazangus.txt");
-  auto end = high_resolution_clock::now();
-  duration<double> diff = end - start;
+  start = steady_clock::now();
+  printResultsToFile(goodStudents, "pazangus.txt", final);
+  printResultsToFile(badStudents, "nepazangus.txt", final);
+  end = steady_clock::now();
+  diff = end - start;
   std::cout << "Studentu surasymas i 2 failus uztruko: " << diff.count() << std::endl;
   
   return 0;

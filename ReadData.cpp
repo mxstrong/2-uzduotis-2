@@ -97,6 +97,7 @@ void generateData(int n, std::vector<Student>& students)
   int homeworkCount = generateRandomInt(1, 20);
   std::vector<std::string> names{ "Vardenis", "Vardas", "Vardukas", "Vardiklis", "Vardonis", "Vardanas", "Vardauskas" };
   std::vector<std::string> surnames{ "Pavardenis", "Pavarde", "Pavardukas", "Pavardiklis", "Pavardonis", "Pavardanas", "Pavardauskas" };
+  students.reserve(n);
   for (int i = 0; i < n; i++)
   {
     Student student;
@@ -108,12 +109,10 @@ void generateData(int n, std::vector<Student>& students)
     for (int j = 0; j < homeworkCount; j++)
     {
       int result = generateRandomInt(0, 10);
-      std::cout << result << std::endl;
       student.homeworkResults.push_back(result);
     }
 
     student.examResult = generateRandomInt(0, 10);
-    std::cout << "Egzamino rezultatas: " << student.examResult << std::endl;
     students.push_back(student);
   }
 }
