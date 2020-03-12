@@ -60,7 +60,10 @@ void readDataFromFile(std::string fileName, int& n, std::vector<Student>& studen
 {
   std::string input;
   std::ifstream f(fileName.c_str());
-  std::getline(f, input);
+  std::stringstream buffer;
+  buffer << f.rdbuf();
+  f.close();
+  std::getline(buffer, input);
   if (input.empty())
   {
     return;
@@ -68,25 +71,28 @@ void readDataFromFile(std::string fileName, int& n, std::vector<Student>& studen
   int homeworkCount = calculateHomeworkCount(input);
   int i = 0;
 
-  while (std::getline(f, input))
+  while (buffer)
   {
-    // std::cout << i << ' ' << input << std::endl;
-    if (input.empty())
+    if (!buffer.eof())
+    {
+      std::getline(buffer, input);
+      Student student;
+      std::istringstream inputStream(input);
+      inputStream >> student.name >> student.surname;
+      for (int j = 0; j < homeworkCount; j++)
+      {
+        int result;
+        inputStream >> result;
+        student.homeworkResults.push_back(result);
+      } 
+      inputStream >> student.examResult;
+      students.push_back(student);
+      i++;
+    }
+    else 
     {
       break;
     }
-    Student student;
-    std::istringstream inputStream(input);
-    inputStream >> student.name >> student.surname;
-    for (int j = 0; j < homeworkCount; j++)
-    {
-      int result;
-      inputStream >> result;
-      student.homeworkResults.push_back(result);
-    }
-    inputStream >> student.examResult;
-    students.push_back(student);
-    i++;
   }
   f.close();
   n = i + 1;

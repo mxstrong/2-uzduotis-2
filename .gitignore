@@ -1,11 +1,10 @@
-.vscode
+**/.vscode
 *.exe
 *.o
 *.txt
-/2 užduotis.vcxproj.user
-/2 užduotis.vcxproj.filters
-/2 užduotis.vcxproj
 /2 užduotis.sln
-/.vs
-/Debug
-/x64/Debug
+**/.vs
+**/Debug
+*.vcxproj.user
+*.vcxproj.filters
+*.vcxproj

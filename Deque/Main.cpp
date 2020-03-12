@@ -108,12 +108,10 @@ int main()
   duration<double> diff = end - start;
   std::cout << "Studentu dalijimas uztruko: " << diff.count() << std::endl;
 
-  start = steady_clock::now();
   printResultsToFile(goodStudents, "pazangus.txt", final);
   printResultsToFile(badStudents, "nepazangus.txt", final);
-  end = steady_clock::now();
-  diff = end - start;
-  std::cout << "Studentu surasymas i 2 failus uztruko: " << diff.count() << std::endl;
-  
+
+  system("pause");
+
   return 0;
 }
