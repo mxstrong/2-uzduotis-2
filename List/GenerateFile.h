@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include <vector>
+#include <list>
 #include "Student.h"
 
-void generateFile(std::string fileName, std::vector<Student> students);
+void generateFile(std::string fileName, std::list<Student> students);

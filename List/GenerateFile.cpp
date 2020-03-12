@@ -1,17 +1,17 @@
 #include <fstream>
 #include <string>
-#include <vector>
+#include <list>
 #include <iomanip>
 #include "Student.h"
 #include "GenerateFile.h"
 
-void generateFile(std::string fileName, std::vector<Student> students)
+void generateFile(std::string fileName, std::list<Student> students)
 {
   std::ofstream res(fileName.c_str());
   res << std::left
       << std::setw(15) << "Vardas"
       << std::setw(17) << "Pavarde";
-  for (int i = 1; i <= students[0].homeworkResults.size(); i++)
+  for (int i = 1; i <= students.front().homeworkResults.size(); i++)
   {
     res << std::setw(8) << "ND" << i << ' ';
   }

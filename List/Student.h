@@ -1,11 +1,11 @@
 #pragma once
-#include <vector>
+#include <list>
 #include <string>
 
 struct Student
 {
   int examResult = 0;
-  std::vector<int> homeworkResults;
+  std::list<int> homeworkResults;
   std::string name, surname;
   float getAverage();
   float getMedian();

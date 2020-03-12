@@ -17,14 +17,16 @@ float Student::getMedian()
   {
     return 0;
   }
-  std::sort(homeworkResults.begin(), homeworkResults.end());
+  homeworkResults.sort();
+  auto it = homeworkResults.begin();
+  std::advance(it, (homeworkResults.size() / 2));
   if (homeworkResults.size() % 2 == 0)
   {
-    return (float(homeworkResults[(homeworkResults.size() / 2) - 1] + homeworkResults[(homeworkResults.size() / 2)])) / 2 * 0.4 + 0.6 * examResult;
+    return (float)(*std::prev(it) + *it) / 2 * 0.4 + 0.6 * examResult;
   }
   else
   {
-    return homeworkResults[(int)(homeworkResults.size()) / 2] * 0.4 + 0.6 * examResult;
+    return *it * 0.4 + 0.6 * examResult;
   }
 }
 

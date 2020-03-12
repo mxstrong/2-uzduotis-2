@@ -1,4 +1,4 @@
-#include <vector>
+#include <list>
 #include <iomanip>
 #include <iostream>
 #include <fstream>
@@ -21,7 +21,7 @@ bool isFirst(Student first, Student second)
   }
 }
 
-void divideStudents(std::vector<Student> &students, std::vector<Student> &goodStudents, std::vector<Student> &badStudents, std::string final)
+void divideStudents(std::list<Student> &students, std::list<Student> &goodStudents, std::list<Student> &badStudents, std::string final)
 {
   for (Student student : students)
   {
@@ -36,7 +36,7 @@ void divideStudents(std::vector<Student> &students, std::vector<Student> &goodSt
   }
 }
 
-void printResultsToFile(std::vector<Student> &students, std::string fileName, std::string final)
+void printResultsToFile(std::list<Student> &students, std::string fileName, std::string final)
 {
   std::ofstream res(fileName.c_str());
   
@@ -51,7 +51,7 @@ void printResultsToFile(std::vector<Student> &students, std::string fileName, st
     res << '-';
   }
   res << std::endl;
-  std::sort(students.begin(), students.end(), isFirst);
+  students.sort(isFirst);
   for (Student student : students)
   {
     res << std::setw(15) << student.name
