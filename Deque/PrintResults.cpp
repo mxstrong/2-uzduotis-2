@@ -1,4 +1,4 @@
-#include <vector>
+#include <deque>
 #include <iomanip>
 #include <iostream>
 #include <fstream>
@@ -21,7 +21,7 @@ bool isFirst(Student first, Student second)
   }
 }
 
-void divideStudents(std::vector<Student> &students, std::vector<Student> &goodStudents, std::vector<Student> &badStudents, std::string final)
+void divideStudents(std::deque<Student> &students, std::deque<Student> &goodStudents, std::deque<Student> &badStudents, std::string final)
 {
   for (Student student : students)
   {
@@ -36,7 +36,7 @@ void divideStudents(std::vector<Student> &students, std::vector<Student> &goodSt
   }
 }
 
-void printResultsToFile(std::vector<Student> &students, std::string fileName, std::string final)
+void printResultsToFile(std::deque<Student> &students, std::string fileName, std::string final)
 {
   std::ofstream res(fileName.c_str());
   

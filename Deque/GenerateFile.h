@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include <vector>
+#include <deque>
 #include "Student.h"
 
-void generateFile(std::string fileName, std::vector<Student> students);
+void generateFile(std::string fileName, std::deque<Student> students);

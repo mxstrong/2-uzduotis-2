@@ -1,11 +1,11 @@
 #include <fstream>
 #include <string>
-#include <vector>
+#include <deque>
 #include <iomanip>
 #include "Student.h"
 #include "GenerateFile.h"
 
-void generateFile(std::string fileName, std::vector<Student> students)
+void generateFile(std::string fileName, std::deque<Student> students)
 {
   std::ofstream res(fileName.c_str());
   res << std::left

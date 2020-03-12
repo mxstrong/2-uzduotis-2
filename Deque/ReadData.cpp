@@ -2,7 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-#include <vector>
+#include <deque>
 #include "Student.h"
 #include "Random.h"
 
@@ -20,7 +20,7 @@ int calculateHomeworkCount(const std::string& input)
 }
 
 // Read data from console input
-void readDataFromInput(int& n, std::vector<Student>& students)
+void readDataFromInput(int& n, std::deque<Student>& students)
 {
   std::cout << "Iveskite studentu kieki: " << std::endl;
   std::cin >> n;
@@ -56,7 +56,7 @@ void readDataFromInput(int& n, std::vector<Student>& students)
 }
 
 // Read data from file
-void readDataFromFile(std::string fileName, int& n, std::vector<Student>& students)
+void readDataFromFile(std::string fileName, int& n, std::deque<Student>& students)
 {
   std::string input;
   std::ifstream f(fileName.c_str());
@@ -98,12 +98,11 @@ void readDataFromFile(std::string fileName, int& n, std::vector<Student>& studen
   n = i + 1;
 }
 
-void generateData(int n, std::vector<Student>& students)
+void generateData(int n, std::deque<Student>& students)
 {
   int homeworkCount = generateRandomInt(1, 20);
-  std::vector<std::string> names{ "Vardenis", "Vardas", "Vardukas", "Vardiklis", "Vardonis", "Vardanas", "Vardauskas" };
-  std::vector<std::string> surnames{ "Pavardenis", "Pavarde", "Pavardukas", "Pavardiklis", "Pavardonis", "Pavardanas", "Pavardauskas" };
-  students.reserve(n);
+  std::deque<std::string> names{ "Vardenis", "Vardas", "Vardukas", "Vardiklis", "Vardonis", "Vardanas", "Vardauskas" };
+  std::deque<std::string> surnames{ "Pavardenis", "Pavarde", "Pavardukas", "Pavardiklis", "Pavardonis", "Pavardanas", "Pavardauskas" };
   for (int i = 0; i < n; i++)
   {
     Student student;
