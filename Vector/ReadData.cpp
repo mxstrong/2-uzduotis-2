@@ -1,4 +1,5 @@
 #include <fstream>
+#include <filesystem>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -56,10 +57,35 @@ void readDataFromInput(int& n, std::vector<Student>& students)
 }
 
 // Read data from file
-void readDataFromFile(std::string fileName, int& n, std::vector<Student>& students)
+void readDataFromFile(int& n, std::vector<Student>& students)
 {
+  std::ifstream f;
+  bool fileExists = false;
+  do {
+    fileExists = true;
+    std::string fileName;
+    std::cout << "Iveskite failo varda: " << std::endl;
+    std::cin >> fileName;
+    try
+    {
+      std::ifstream f(fileName.c_str());
+    }
+    catch (std::exception &e)
+    {
+      if (!std::filesystem::exists(fileName))
+      {
+        std::cout << "Failas su tokiu pavadinimu neegzistuoja" << std::endl;
+        fileExists = false;
+      }
+      else
+      {
+        throw;
+      }
+    }
+  } while (!fileExists);
+
   std::string input;
-  std::ifstream f(fileName.c_str());
+  
   std::stringstream buffer;
   buffer << f.rdbuf();
   f.close();

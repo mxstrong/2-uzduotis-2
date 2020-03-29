@@ -25,33 +25,11 @@ int main()
   } while (!goodChoice);
   if (choice == "skaityti")
   {
-    bool fileExists = false;
-    do {
-      fileExists = true;
-      std::string fileName;
-      std::cout << "Iveskite failo varda: " << std::endl;
-      std::cin >> fileName;
-      try 
-      {
-        auto start = steady_clock::now();
-        readDataFromFile(fileName, n, students);
-        auto end = steady_clock::now();
-        duration<double> diff = end - start;
-        std::cout << "Duomenu nuskaitymas is failo uztruko: " << diff.count() << std::endl;
-      } catch(std::exception &e)
-      {
-        if (!std::filesystem::exists(fileName))
-        {
-          std::cout << "Failas su tokiu pavadinimu neegzistuoja" << std::endl;
-          fileExists = false;
-        }
-        else
-        {
-          throw;
-        }
-      }
-    } while(!fileExists);
-    
+    auto start = steady_clock::now();
+    readDataFromFile(n, students);
+    auto end = steady_clock::now();
+    duration<double> diff = end - start;
+    std::cout << "Duomenu nuskaitymas is failo uztruko: " << diff.count() << std::endl;
   } 
   else if (choice == "generuoti")
   {
