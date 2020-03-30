@@ -1,10 +1,30 @@
+#include <chrono>
 #include <fstream>
+#include <filesystem>
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <deque>
 #include "Student.h"
 #include "Random.h"
+
+using namespace std::chrono;
+
+std::string chooseInputSource()
+{
+  bool goodChoice = true;
+  std::string choice;
+  do {
+    if (!goodChoice)
+    {
+      std::cout << "Pasirinkimas turi buti ivesti, generuoti arba skaityti" << std::endl;
+    }
+    std::cout << "Kaip gauti duomenis (ivesti, generuoti, skaityti(is failo))?" << std::endl;
+    std::cin >> choice;
+    goodChoice = choice.compare("ivesti") == 0 || choice.compare("generuoti") == 0 || choice.compare("skaityti") == 0;
+  } while (!goodChoice);
+  return choice;
+}
 
 int calculateHomeworkCount(const std::string& input)
 {
@@ -20,46 +40,42 @@ int calculateHomeworkCount(const std::string& input)
 }
 
 // Read data from console input
-void readDataFromInput(int& n, std::deque<Student>& students)
+void readDataFromInput(std::deque<Student>& students)
 {
+  int n;
   std::cout << "Iveskite studentu kieki: " << std::endl;
   std::cin >> n;
   for (int i = 0; i < n; i++)
   {
     Student student;
+    std::cin >> student;
     students.push_back(student);
-    std::cout << "Iveskite studento varda: " << std::endl;
-    std::cin >> students[i].name;
-    std::cout << "Iveskite studento pavarde: " << std::endl;
-    std::cin >> students[i].surname;
-    std::cout << "Iveskite namu darbu rezultatus, kai baigsite iveskite -1 arba kita neigiama skaiciu: " << std::endl;
-
-    int j = 0;
-    int result;
-    do
-    {
-      std::cin >> result;
-      if (result >= 0 && result <= 10) 
-      {
-        students[i].homeworkResults.push_back(result);
-      }
-      else
-      {
-        std::cout << "Pazymys turi buti skaicius nuo 1 iki 10" << std::endl;
-      }
-      j++;
-    } while (result >= 0);
-
-    std::cout << "Iveskite egzamino rezultata: " << std::endl;
-    std::cin >> students[i].examResult;
   }
 }
 
 // Read data from file
-void readDataFromFile(std::string fileName, int& n, std::deque<Student>& students)
+void readDataFromFile(std::deque<Student>& students)
 {
-  std::string input;
+  bool fileExists = false;
+  std::string fileName;
+  do {
+    fileExists = true;
+    std::cout << "Iveskite failo varda: " << std::endl;
+    std::cin >> fileName;
+    try
+    {
+      std::filesystem::exists(fileName);
+    }
+    catch (std::filesystem::filesystem_error & e)
+    {
+      fileExists = false;
+      throw "File cannot be opened";
+    }
+  } while (!fileExists);
+  auto start = steady_clock::now();
   std::ifstream f(fileName.c_str());
+  std::string input;
+
   std::stringstream buffer;
   buffer << f.rdbuf();
   f.close();
@@ -69,7 +85,6 @@ void readDataFromFile(std::string fileName, int& n, std::deque<Student>& student
     return;
   }
   int homeworkCount = calculateHomeworkCount(input);
-  int i = 0;
 
   while (buffer)
   {
@@ -78,28 +93,29 @@ void readDataFromFile(std::string fileName, int& n, std::deque<Student>& student
       std::getline(buffer, input);
       Student student;
       std::istringstream inputStream(input);
-      inputStream >> student.name >> student.surname;
-      for (int j = 0; j < homeworkCount; j++)
-      {
-        int result;
-        inputStream >> result;
-        student.homeworkResults.push_back(result);
-      } 
-      inputStream >> student.examResult;
+      inputStream >> student;
       students.push_back(student);
-      i++;
     }
-    else 
+    else
     {
       break;
     }
   }
   f.close();
-  n = i + 1;
+  auto end = steady_clock::now();
+  duration<double> diff = end - start;
+  std::cout << "Duomenu nuskaitymas is failo uztruko: " << diff.count() << std::endl;
 }
 
-void generateData(int n, std::deque<Student>& students)
+void generateData(std::deque<Student>& students)
 {
+  auto start = steady_clock::now();
+  std::cout << "Kiek studentu sugeneruoti?" << std::endl;
+  int n;
+  std::cin >> n;
+  if (n < 1) {
+    return;
+  }
   int homeworkCount = generateRandomInt(1, 20);
   std::deque<std::string> names{ "Vardenis", "Vardas", "Vardukas", "Vardiklis", "Vardonis", "Vardanas", "Vardauskas" };
   std::deque<std::string> surnames{ "Pavardenis", "Pavarde", "Pavardukas", "Pavardiklis", "Pavardonis", "Pavardanas", "Pavardauskas" };
@@ -120,4 +136,7 @@ void generateData(int n, std::deque<Student>& students)
     student.examResult = generateRandomInt(0, 10);
     students.push_back(student);
   }
+  auto end = steady_clock::now();
+  duration<double> diff = end - start;
+  std::cout << "Studentu generavimas uztruko: " << diff.count() << std::endl;
 }

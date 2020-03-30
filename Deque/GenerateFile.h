@@ -3,4 +3,5 @@
 #include <deque>
 #include "Student.h"
 
+bool chooseToCalculate(std::deque<Student>& students);
 void generateFile(std::string fileName, std::deque<Student> students);

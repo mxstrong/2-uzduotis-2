@@ -2,6 +2,8 @@
 #include <deque>
 #include <string>
 #include "Student.h"
-void readDataFromInput(int& n, std::deque<Student>& students);
-void readDataFromFile(std::string fileName, int& n, std::deque<Student>& students);
-void generateData(int n, std::deque<Student>& students);
+
+std::string chooseInputSource();
+void readDataFromInput(std::deque<Student>& students);
+void readDataFromFile(std::deque<Student>& students);
+void generateData(std::deque<Student>& students);

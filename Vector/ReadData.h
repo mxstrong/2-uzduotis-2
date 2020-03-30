@@ -2,6 +2,8 @@
 #include <vector>
 #include <string>
 #include "Student.h"
-void readDataFromInput(int& n, std::vector<Student>& students);
-void readDataFromFile(int& n, std::vector<Student>& students);
-void generateData(int n, std::vector<Student>& students);
+
+std::string chooseInputSource();
+void readDataFromInput(std::vector<Student>& students);
+void readDataFromFile(std::vector<Student>& students);
+void generateData(std::vector<Student>& students);
