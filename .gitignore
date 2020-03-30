@@ -8,3 +8,5 @@
 *.vcxproj.user
 *.vcxproj.filters
 *.vcxproj
+/Vector-2/x64/Release
+/x64/Release
