@@ -55,6 +55,6 @@ void generateFile(std::string fileName, std::vector<Student> students)
   }
   res.close();
   auto end = steady_clock::now();
-  duration<double> diff = start - end;
+  duration<double> diff = end - start;
   std::cout << "Failu generavimas uztruko: " << diff.count() << std::endl;
 }

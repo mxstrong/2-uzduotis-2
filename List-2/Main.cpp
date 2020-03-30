@@ -25,6 +25,12 @@ int main()
     bool choice = chooseToCalculate(students);
     if (!choice)
     {
+      auto end = steady_clock::now();
+      duration<double> diff = end - start;
+      std::cout << "Visos programos veikimo laikas: " << diff.count() << std::endl;
+
+      system("pause");
+
       return 0;
     }
   }
@@ -36,9 +42,9 @@ int main()
 
   std::string final = chooseFinal();
 
-  divideStudents(students, badStudents, final);
-
   sortStudents(students);
+
+  divideStudents(students, badStudents, final);
 
   printResultsToFile(students, "pazangus.txt", final);
   printResultsToFile(badStudents, "nepazangus.txt", final);

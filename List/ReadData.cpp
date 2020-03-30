@@ -107,9 +107,14 @@ void readDataFromFile(std::list<Student>& students)
   std::cout << "Duomenu nuskaitymas is failo uztruko: " << diff.count() << std::endl;
 }
 
-void generateData(int n, std::list<Student>& students)
+void generateData(std::list<Student>& students)
 {
   auto start = steady_clock::now();
+  int n;
+  std::cin >> n;
+  if (n < 1) {
+    return;
+  }
   int homeworkCount = generateRandomInt(1, 20);
   std::list<std::string> names{ "Vardenis", "Vardas", "Vardukas", "Vardiklis", "Vardonis", "Vardanas", "Vardauskas" };
   std::list<std::string> surnames{ "Pavardenis", "Pavarde", "Pavardukas", "Pavardiklis", "Pavardonis", "Pavardanas", "Pavardauskas" };

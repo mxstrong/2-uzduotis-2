@@ -10,3 +10,8 @@
 *.vcxproj
 /Vector-2/x64/Release
 /x64/Release
+/Vector/x64/Release
+/List-2/x64/Release
+/List/x64/Release
+/Deque-2/x64/Release
+/Deque/x64/Release

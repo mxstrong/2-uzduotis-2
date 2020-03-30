@@ -57,7 +57,7 @@ void divideStudents(std::list<Student> &goodStudents, std::list<Student> &badStu
 void sortStudents(std::list<Student>& students)
 {
   auto start = steady_clock::now();
-  std::sort(students.begin(), students.end(), isFirst);
+  students.sort(isFirst);
   auto end = steady_clock::now();
   duration<double> diff = end - start;
   std::cout << "Studentu rikiavimas uztruko: " << diff.count() << std::endl;
