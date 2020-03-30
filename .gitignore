@@ -2,6 +2,7 @@
 *.exe
 *.o
 *.txt
+!CMakeLists.txt
 /2 užduotis.sln
 **/.vs
 **/Debug
@@ -15,3 +16,4 @@
 /List/x64/Release
 /Deque-2/x64/Release
 /Deque/x64/Release
+**/build
