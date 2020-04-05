@@ -8,23 +8,6 @@
 
 using namespace std::chrono;
 
-std::string chooseFinal()
-{
-  std::string final = "";
-  bool badInput = false;
-
-  do
-  {
-    if (badInput) {
-      std::cout << "Pasirinkote negalima pasirinkima. Galimi pasirinkimai: vidurkis, mediana" << std::endl;
-    }
-    std::cout << "Pasirinkite galutini bala (vidurkis / mediana)" << std::endl;
-    std::cin >> final;
-    badInput = !(final.compare("vidurkis") == 0 || final.compare("mediana") == 0);
-  } while (badInput);
-  return final;
-}
-
 bool isFirst(Student first, Student second)
 {
   if (first.name < second.name)

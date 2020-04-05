@@ -11,6 +11,7 @@ struct Student
   int examResult = 0;
   std::vector<int> homeworkResults;
   std::string name, surname;
+
   float getAverage();
   float getMedian();
 
