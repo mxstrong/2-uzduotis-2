@@ -1,5 +1,5 @@
-Deque: Benchmark Choices PrintResults Random ReadData Student
-	clang++ -std=c++17 -o Deque Main.cpp Benchmark.o Choices.o PrintResults.o Random.o ReadData.o Student.o
+Deque-2: Benchmark Choices PrintResults Random ReadData Student
+	clang++ -std=c++17 -o Deque-2 Main.cpp Benchmark.o Choices.o PrintResults.o Random.o ReadData.o Student.o
 Benchmark:
 	clang++ -std=c++17 -c Benchmark.cpp
 Choices:
@@ -13,4 +13,4 @@ ReadData:
 Student:
 	clang++ -std=c++17 -c Student.cpp
 clean:
-	rm *.o Deque
+	rm *.o Deque-2

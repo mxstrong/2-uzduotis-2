@@ -48,11 +48,10 @@ void readDataFromFile(std::vector<Student>& students)
     std::cin >> fileName;
     try
     {
-      std::filesystem::exists(fileName);
+      fileExists = std::filesystem::exists(fileName);
     }
     catch (std::filesystem::filesystem_error & e)
     {
-      fileExists = false;
       throw "File cannot be opened";
     }
   } while (!fileExists);

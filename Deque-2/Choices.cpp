@@ -1,5 +1,5 @@
-#include "Choices.h";
-#include "Benchmark.h";
+#include "Choices.h"
+#include "Benchmark.h"
 
 bool chooseToBenchmark(std::deque<Student>& students)
 {
