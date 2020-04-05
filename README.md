@@ -28,31 +28,31 @@ Programa dabar suskirstyta į 3 versijas, su skirtingomis duomenų struktūromis
 ## Programos veikimo laiko analizė, su skirtingomis duomenų struktūromis:
 
 ### std::vector:
-Studentų kiekis | Duomenų nuskaitymas | Studentų rūšiavimas į dvi kategorijas
---------------- | ------------------- | -------------------------------------
-1000 | 0.0056261s | 0.0003923s
-10000 | 0.0460614s | 0.0027093s
-100000 | 1.1548s | 0.0382856s
-1000000 | 5.41935s | 0.469434s
-10000000 | 44.3545s | 4.23923s
+Studentų kiekis | Duomenų nuskaitymas | Studentų rūšiavimas į dvi kategorijas | Visas laikas
+--------------- | ------------------- | ------------------------------------- | ------------
+1000 | 0.0056261s | 0.0003923s | 0.0060184s
+10000 | 0.0460614s | 0.0027093s | 0.0487707s
+100000 | 1.1548s | 0.0382856s | 1.1930856s
+1000000 | 5.41935s | 0.469434s | 5.888784s
+10000000 | 44.3545s | 4.23923s | 48.59373s
 
 ### std::list:
-Studentų kiekis | Duomenų nuskaitymas | Studentų rūšiavimas į dvi kategorijas
---------------- | ------------------- | -------------------------------------
-1000 | 0.0089173s | 0.0007535s
-10000 | 0.0467701s | 0.0063385s
-100000 | 1.22308s | 0.146764s
-1000000 | 6.05603s | 1.09972s
-10000000 | 47.787s | 9.35601s
+Studentų kiekis | Duomenų nuskaitymas | Studentų rūšiavimas į dvi kategorijas | Visas laikas
+--------------- | ------------------- | ------------------------------------- | ------------
+1000 | 0.0089173s | 0.0007535s | 0.0096708s
+10000 | 0.0467701s | 0.0063385s | 0.0531086s
+100000 | 1.22308s | 0.146764s | 1.369844s
+1000000 | 6.05603s | 1.09972s | 7.15575s
+10000000 | 47.787s | 9.35601s | 57.14301s
 
 ### std::deque:
-Studentų kiekis | Duomenų nuskaitymas | Studentų rūšiavimas į dvi kategorijas
---------------- | ------------------- | -------------------------------------
-1000 | 0.0102834s | 0.0006412s
-10000 | 0.049512s | 0.0069454s
-100000 | 1.20976s | 0.0954378s
-1000000 | 5.60804s | 0.83865s
-10000000 | 50.1963s | 11.5791s
+Studentų kiekis | Duomenų nuskaitymas | Studentų rūšiavimas į dvi kategorijas | Visas laikas
+--------------- | ------------------- | ------------------------------------- | ------------
+1000 | 0.0102834s | 0.0006412s | 0.0109246s
+10000 | 0.049512s | 0.0069454s | 0.0564574s
+100000 | 1.20976s | 0.0954378s | 1.3051978s
+1000000 | 5.60804s | 0.83865s | 6.44669s
+10000000 | 50.1963s | 11.5791s | 61.7754s
 
 ### Kompiuterio parametrai
 CPU | RAM | SSD
