@@ -22,6 +22,8 @@ Studentų kiekis | Studentų generavimas | Failų generavimas | Duomenų nuskait
 1000000 | 29.3251s | 4.1484s | 5.41935s | 1.69674s | 0.469434s | 3.55203s | 3.61551s | 32.1945s
 10000000 | 165.339s | 36.2581s | 44.3545s | 17.6408s | 4.23923s | 36.4908s | 42.16s | 164.168s
 
+Bendras programos veikimo laikas auga šiek tiek mažiau kartų nei duomenų kiekis, todėl šis augimas yra logaritminis. Galima išskirti studentų rikiavimą ir rašymą į failus kaip greičiausiai augančias operacijas veikimo laiko prasme.
+
 # [Versija v0.5](https://github.com/mxstrong/2-uzduotis/releases/tag/v0.5)
 Programa dabar suskirstyta į 3 versijas, su skirtingomis duomenų struktūromis: std::vector, std::list ir std::deque.
 
@@ -54,6 +56,8 @@ Studentų kiekis | Duomenų nuskaitymas | Studentų rūšiavimas į dvi kategori
 1000000 | 5.60804s | 0.83865s | 6.44669s
 10000000 | 50.1963s | 11.5791s | 61.7754s
 
+Greičiausiai šioje programoje veikia std::vector duomenų struktūra, kitos duomenų struktūros šias užduotis atlieka lėčiau, o programos veikimo laiko augimas tarp struktūrų panašus.
+
 ### Kompiuterio parametrai
 CPU | RAM | SSD
 --- | --- | ---
@@ -62,8 +66,8 @@ Intel CORE i5 8th Gen | 8GB | 256GB
 # [Versija v1.0](https://github.com/mxstrong/2-uzduotis/releases/tag/v1.0)
 Programa buvo pertvarkyta ir ženkliai optimizuota ir todėl atnaujintos programos spartos analizės. Programa dabar taiko 2 skirtingas strategijas studentams surūšiuoti į dvi grupes.
 
-## Studentų rūšiavimo strategijų palyginimas
-1 strategija - studentų konteinerį padalinti į du konteinerius
+## Studentų rūšiavimo strategijų palyginimas:
+1 strategija - studentų konteinerį padalinti į du konteinerius\
 2 strategija - iš studentų konteinerio perkelti kriterijų atitinkančius studentus į naują konteinerį
 
 Studentų kiekis | std::vector 1 strategija | std::vector 2 strategija | std::list 1 strategija | std::list 2 strategija | std::deque 1 strategija | std::deque 2 strategija
@@ -73,3 +77,32 @@ Studentų kiekis | std::vector 1 strategija | std::vector 2 strategija | std::li
 100000 | 0.0382856s | 0.0184986s | 0.146764s | 0.102567s | 0.0954378s | 0.0729289s
 1000000 | 0.469434s | 0.241298s | 1.09972s | 1.14836s | 0.83865s | 0.769068s
 10000000 | 4.23923s | 2.44195s | 9.35601s | 9.33468s | 11.5791s | 7.82477s
+
+2 strategija daugeliu atvejų yra greitesnė, išskyrus su std::list, kur vykdymo laikas panašus ir su std::deque naudojant apie 10000 įrašų, bet su mažiau arba daugiau įrašų std::deque programos implementacija veikia šiek tiek greičiau naudojant 2 strategiją. Ženkliausi skirtumai pastebimi su std::vector, kur 2 strategija beveik du kartus greitesnė.
+
+## Įdiegimo instrukcija:
+1. Atsisiųskite norimą programos versiją iš „Releases“ skilties arba naudodami `git clone https://github.com/mxstrong/2-uzduotis.git` nusikopijuokite kodą į pasirinktą aplanką.
+2. Pasirinkite aplanką, kuriame yra jūsų norima versija ir jį atsidarykite komandinėje eilutėje.
+3. Naudodami cmake susikurkite projekto build failus(Jei neturite cmake jį galite gauti: https://cmake.org/download/):
+3.1. Galite naudoti komandas kad būtų sukurti default build failai: 
+`mkdir build
+cd build
+cmake --build ..`
+3.2. Jei norite pasirinkti kitą būdą projektą subuild'inti, galite pasirinkti bet kurį būdą iš galimų, kurie išvardinti `cmake -G --help`
+3.2.1. Tada galite sugeneruoti build failus pasirinktu būdu:
+`cmake --build -G "Pasirinktas būdas" ..`
+4. Subuild'inkite programą pasirinktu būdu ir paleiskite gautą vykdomajį failą.
+
+## Naudojimo instrukcija:
+1. Pasirinkite iš kur imti pradinius duomenis.\
+2. Pasirinkite tolimesnį žingsnį (a, b ar c) pagal praeitame žingsnyje padrytą pasirinkimą.
+  2.a Jei pasirinkote įvesti, pasirinkite kelių studentų duomenis norite įvesti.\
+  3.a. Įveskite kiekvieno studento vardą, pavardę, namų darbų rezultatus ir egzamino pažymį.\
+  4.a. Pereikite į 3 žingsnį.\
+  2.b. Jei pasirinkote generuoti, pasirinkite kiek studentų sugeneruoti.\
+  3.b. Pasirinkite ar skaičiuoti rezultatus, ar sugeneruotus studentus įrašyti į failą, jei pasirinksite taip, pereikite į 3 žingsnį.\
+  4.b. Įveskite norimo sugeneruoti failo vardą.\
+  2.c. Jei pasirinkote skaityti iš failo, įveskite duomenų failo vardą.\
+  3.c. Pereikite į sekantį(3) žingsnį.\
+3. Pasirinkite ką naudoti galutinio balo skaičiavimui (vidurkį ar medianą).
+4. Peržiūrėkite rezultatus ir uždarykite programą.
