@@ -3,6 +3,28 @@
 #include <numeric>
 #include <iomanip>
 
+std::string Student::medianOrAverage = "";
+
+Student::Student()
+{
+  name = "";
+  surname = "";
+}
+
+Student::Student(std::string name, std::string surname)
+{
+  this->name = name;
+  this->surname = surname;
+}
+
+Student::Student(std::string name, std::string surname, std::vector<int>& homeworkResults, int examResult)
+{
+  this->name = name;
+  this->surname = surname;
+  this->homeworkResults = homeworkResults;
+  this->examResult = examResult;
+}
+
 float Student::getAverage()
 {
   if (homeworkResults.size() == 0)
@@ -29,13 +51,93 @@ float Student::getMedian()
   }
 }
 
-float Student::getFinal(float homeworkResult, float examResult)
+float Student::getFinal()
 {
-  return 0.4 * homeworkResult + 0.6 * examResult;
+  if (Student::medianOrAverage == "vidurkis") 
+  {
+    return 0.4 * this->getAverage() + 0.6 * examResult;
+  }
+  else 
+  {
+    return 0.4 * this->getMedian() + 0.6 * examResult;
+  }
+}
+
+int Student::getHomeworkResultsCount()
+{
+  return homeworkResults.size();
+}
+
+std::string Student::getName()
+{
+  return name;
+}
+
+std::string Student::getSurname()
+{
+  return surname;
+}
+
+int Student::getExamResult()
+{
+  return examResult;
+}
+
+std::string Student::getMedianOrAverage()
+{
+  return Student::medianOrAverage;
+}
+
+std::vector<int> Student::getHomeworkResults()
+{
+  return homeworkResults;
+}
+
+void Student::setName(std::string name)
+{
+  this->name = name;
+}
+void Student::setSurname(std::string surname)
+{
+  this->surname = surname;
+}
+
+void Student::setFullName(std::string name, std::string surname)
+{
+  this->name = name;
+  this->surname = surname;
+}
+
+void Student::addHomeworkResult(int result) 
+{
+  homeworkResults.push_back(result);
+}
+
+void Student::setExamResult(int result)
+{
+  examResult = result;
+}
+
+void Student::setMedianOrAverage()
+{
+  std::string final = "";
+  bool badInput = false;
+
+  do
+  {
+    if (badInput) {
+      std::cout << "Pasirinkote negalima pasirinkima. Galimi pasirinkimai: vidurkis, mediana" << std::endl;
+    }
+    std::cout << "Pasirinkite galutini bala (vidurkis / mediana)" << std::endl;
+    std::cin >> final;
+    badInput = !(final.compare("vidurkis") == 0 || final.compare("mediana") == 0);
+  } while (badInput);
+  Student::medianOrAverage = final;
 }
 
 std::istream& operator >> (std::istream& in, Student& student)
 {
+  std::string name;
   std::cout << "Iveskite studento varda: " << std::endl;
   in >> student.name;
   std::cout << "Iveskite studento pavarde: " << std::endl;
@@ -87,7 +189,7 @@ std::ofstream& operator << (std::ofstream& out, Student& student)
   line << std::left << std::setw(15) << student.name
     << std::setw(17) << student.surname
     << std::fixed << std::setprecision(2) << std::setw(17)
-    << student.getFinal((final == "vidurkis") ? student.getAverage() : student.getMedian(), student.examResult);
+    << student.getFinal();
   out << line.str();
   return out;
 }

@@ -38,14 +38,14 @@ int main()
     }
     std::vector<Student> badStudents;
 
-    std::string final = chooseFinal();
+    Student::setMedianOrAverage();
 
     sortStudents(students);
 
-    divideStudents(students, badStudents, final);
+    divideStudents(students, badStudents);
 
-    printResultsToFile(students, "pazangus.txt", final);
-    printResultsToFile(badStudents, "nepazangus.txt", final);
+    printResultsToFile(students, "pazangus.txt");
+    printResultsToFile(badStudents, "nepazangus.txt");
     
   }
 

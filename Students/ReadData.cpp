@@ -107,17 +107,17 @@ void generateData(std::vector<Student>& students)
   {
     Student student;
     int random = generateRandomInt(0, 6);
-    student.name = names[random];
+    student.setName(names[random]);
     random = generateRandomInt(0, 6);
-    student.surname = surnames[random];
+    student.setSurname(surnames[random]);
 
     for (int j = 0; j < homeworkCount; j++)
     {
       int result = generateRandomInt(0, 10);
-      student.homeworkResults.push_back(result);
+      student.addHomeworkResult(result);
     }
 
-    student.examResult = generateRandomInt(0, 10);
+    student.setExamResult(generateRandomInt(0, 10));
     students.push_back(student);
   }
   auto end = steady_clock::now();

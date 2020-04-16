@@ -35,7 +35,6 @@ void doBenchmark()
   {
     std::cin >> data.fileName;
   }
-  std::string final = chooseFinal();
   for (auto data : benchmarkData)
   {
     auto start = steady_clock::now();
@@ -44,9 +43,9 @@ void doBenchmark()
     generateFile(data.fileName, students);
     sortStudents(students);
     std::vector<Student> badStudents;
-    divideStudents(students, badStudents, final);
-    printResultsToFile(students, "pazangus.txt", final);
-    printResultsToFile(badStudents, "nepazangus.txt", final);
+    divideStudents(students, badStudents);
+    printResultsToFile(students, "pazangus.txt");
+    printResultsToFile(badStudents, "nepazangus.txt");
     auto end = steady_clock::now();
     duration<double> diff = end - start;
     std::cout << "Laiko matavimas su " << data.studentCount << " studentu uztruko: " << diff.count() << std::endl;
@@ -64,17 +63,17 @@ void generateData(std::vector<Student>& students, int n)
   {
     Student student;
     int random = generateRandomInt(0, 6);
-    student.name = names[random];
+    student.setName(names[random]);
     random = generateRandomInt(0, 6);
-    student.surname = surnames[random];
+    student.setSurname(surnames[random]);
 
     for (int j = 0; j < homeworkCount; j++)
     {
       int result = generateRandomInt(0, 10);
-      student.homeworkResults.push_back(result);
+      student.addHomeworkResult(result);
     }
 
-    student.examResult = generateRandomInt(0, 10);
+    student.setExamResult(generateRandomInt(0, 10));
     students.push_back(student);
   }
   auto end = steady_clock::now();
@@ -89,7 +88,7 @@ void generateFile(std::string fileName, std::vector<Student> students)
   res << std::left
       << std::setw(15) << "Vardas"
       << std::setw(17) << "Pavarde";
-  for (int i = 1; i <= students.front().homeworkResults.size(); i++)
+  for (int i = 1; i <= students.front().getHomeworkResultsCount(); i++)
   {
     res <<  "ND" << std::setw(5) << i << ' ';
   }
@@ -98,13 +97,13 @@ void generateFile(std::string fileName, std::vector<Student> students)
   for (Student student : students)
   {
     std::ostringstream line;
-    line << std::left << std::setw(15) << student.name
-        << std::setw(17) << student.surname;
-    for (int result : student.homeworkResults)
+    line << std::left << std::setw(15) << student.getName()
+        << std::setw(17) << student.getSurname();
+    for (int result : student.getHomeworkResults())
     {
       line << std::setw(8) << result;
     }
-    line << student.examResult << std::endl;
+    line << student.getExamResult() << std::endl;
     res << line.str();
   }
   res.close();
