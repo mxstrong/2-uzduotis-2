@@ -1,16 +1,18 @@
+CC = clang++
+CFLAGS = -O1
 Students: Benchmark Choices PrintResults Random ReadData Student
-	clang++ -std=c++17 -o Students Main.cpp Benchmark.o Choices.o PrintResults.o Random.o ReadData.o Student.o
+	$(CC) -std=c++17 -o Students $(CFLAGS) Main.cpp Benchmark.o Choices.o PrintResults.o Random.o ReadData.o Student.o
 Benchmark:
-	clang++ -std=c++17 -c Benchmark.cpp
+	$(CC) -std=c++17 -c $(CFLAGS) Benchmark.cpp
 Choices:
-	clang++ -std=c++17 -c Choices.cpp
+	$(CC) -std=c++17 -c $(CFLAGS) Choices.cpp
 PrintResults:
-	clang++ -std=c++17 -c PrintResults.cpp
+	$(CC) -std=c++17 -c $(CFLAGS) PrintResults.cpp
 Random:
-	clang++ -std=c++17 -c Random.cpp
+	$(CC) -std=c++17 -c $(CFLAGS) Random.cpp
 ReadData:
-	clang++ -std=c++17 -c ReadData.cpp
+	$(CC) -std=c++17 -c $(CFLAGS) ReadData.cpp
 Student:
-	clang++ -std=c++17 -c Student.cpp
+	$(CC) -std=c++17 -c $(CFLAGS) Student.cpp
 clean:
 	rm *.o Students
