@@ -108,3 +108,5 @@ Studentų kiekis | std::vector 1 strategija | std::vector 2 strategija | std::li
      * Jei pasirinkote skaityti iš failo:
         * Įveskite duomenų failo vardą.
         * Pasirinkite ką naudoti galutinio balo skaičiavimui (vidurkį ar medianą).
+# [Versija v1.0.1](https://github.com/mxstrong/2-uzduotis/releases/tag/v1.0.1)
+Buvo atnaujinta programos sąsaja su vartotoju komandinėje eilutėje, taip pat minimaliai atnaujinta programos veikimo laiko analizė. Buvo sukurti nauji Makefile tam, kad programa veiktų Unix tipo sistemose. Sukūrus Makefile ir atnaujinus vartotojo sąsają atitinkamai buvo atnaujintos programos įdiegimo ir naudojimo instrukcijos.
