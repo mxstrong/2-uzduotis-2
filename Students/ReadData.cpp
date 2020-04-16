@@ -4,7 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-#include <list>
+#include <vector>
 #include "Student.h"
 #include "Random.h"
 
@@ -24,7 +24,7 @@ int calculateHomeworkCount(const std::string& input)
 }
 
 // Read data from console input
-void readDataFromInput(std::list<Student>& students)
+void readDataFromInput(std::vector<Student>& students)
 {
   int n;
   std::cout << "Iveskite studentu kieki: " << std::endl;
@@ -38,7 +38,7 @@ void readDataFromInput(std::list<Student>& students)
 }
 
 // Read data from file
-void readDataFromFile(std::list<Student>& students)
+void readDataFromFile(std::vector<Student>& students)
 {
   bool fileExists = false;
   std::string fileName;
@@ -90,40 +90,38 @@ void readDataFromFile(std::list<Student>& students)
   std::cout << "Duomenu nuskaitymas is failo uztruko: " << diff.count() << std::endl;
 }
 
-void generateData(std::list<Student>& students)
+void generateData(std::vector<Student>& students)
 {
   auto start = steady_clock::now();
+  std::cout << "Kiek studentu sugeneruoti?" << std::endl;
   int n;
   std::cin >> n;
   if (n < 1) {
     return;
   }
   int homeworkCount = generateRandomInt(1, 20);
-  std::list<std::string> names{ "Vardenis", "Vardas", "Vardukas", "Vardiklis", "Vardonis", "Vardanas", "Vardauskas" };
-  std::list<std::string> surnames{ "Pavardenis", "Pavarde", "Pavardukas", "Pavardiklis", "Pavardonis", "Pavardanas", "Pavardauskas" };
+  std::vector<std::string> names{ "Vardenis", "Vardas", "Vardukas", "Vardiklis", "Vardonis", "Vardanas", "Vardauskas" };
+  std::vector<std::string> surnames{ "Pavardenis", "Pavarde", "Pavardukas", "Pavardiklis", "Pavardonis", "Pavardanas", "Pavardauskas" };
+  students.reserve(n);
   for (int i = 0; i < n; i++)
   {
     Student student;
     int random = generateRandomInt(0, 6);
-    auto namesIterator = names.begin();
-    std::advance(namesIterator, random);
-    student.name = *namesIterator;
-
+    student.setName(names[random]);
     random = generateRandomInt(0, 6);
-    auto surnamesIterator = surnames.begin();
-    std::advance(surnamesIterator, random);
-    student.surname = *surnamesIterator;
+    student.setSurname(surnames[random]);
 
     for (int j = 0; j < homeworkCount; j++)
     {
       int result = generateRandomInt(0, 10);
-      student.homeworkResults.push_back(result);
+      student.addHomeworkResult(result);
     }
 
-    student.examResult = generateRandomInt(0, 10);
+    student.setExamResult(generateRandomInt(0, 10));
     students.push_back(student);
   }
   auto end = steady_clock::now();
   duration<double> diff = end - start;
-  std::cout << "Studentu generavimas uztruko: " << diff.count() << std::endl;
+  std::cout << n << " studentu generavimas uztruko: " << diff.count() << std::endl;
 }
+

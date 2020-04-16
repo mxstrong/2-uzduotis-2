@@ -1,14 +1,14 @@
 #include <chrono>
+#include <sstream>
 #include <fstream>
 #include <string>
-#include <list>
+#include <vector>
 #include <iomanip>
 #include "Student.h"
 #include "Benchmark.h"
+#include "Random.h"
 #include "PrintResults.h"
 #include "Choices.h"
-#include "Benchmark.h"
-#include "Random.h"
 
 using namespace std::chrono;
 
@@ -24,7 +24,7 @@ void doBenchmark()
       throw "Negalima generuoti neigiamo failu skaiciaus";
     }
   }
-  std::list<BenchmarkData> benchmarkData(fileCount, BenchmarkData());
+  std::vector<BenchmarkData> benchmarkData(fileCount, BenchmarkData());
   std::cout << "Iveskite kokio dydzio failus generuoti: " << std::endl;
   for (auto& data : benchmarkData)
   {
@@ -35,50 +35,45 @@ void doBenchmark()
   {
     std::cin >> data.fileName;
   }
-  std::string final = chooseFinal();
   for (auto data : benchmarkData)
   {
     auto start = steady_clock::now();
-    std::list<Student> students;
+    std::vector<Student> students;
     generateData(students, data.studentCount);
     generateFile(data.fileName, students);
-    students.sort(isFirst);
-    std::list<Student> badStudents;
-    divideStudents(students, badStudents, final);
-    printResultsToFile(students, "pazangus.txt", final);
-    printResultsToFile(badStudents, "nepazangus.txt", final);
+    sortStudents(students);
+    std::vector<Student> badStudents;
+    divideStudents(students, badStudents);
+    printResultsToFile(students, "pazangus.txt");
+    printResultsToFile(badStudents, "nepazangus.txt");
     auto end = steady_clock::now();
     duration<double> diff = end - start;
     std::cout << "Laiko matavimas su " << data.studentCount << " studentu uztruko: " << diff.count() << std::endl;
   }
 }
 
-void generateData(std::list<Student>& students, int n)
+void generateData(std::vector<Student>& students, int n)
 {
   auto start = steady_clock::now();
   int homeworkCount = generateRandomInt(1, 20);
-  std::list<std::string> names{ "Vardenis", "Vardas", "Vardukas", "Vardiklis", "Vardonis", "Vardanas", "Vardauskas" };
-  std::list<std::string> surnames{ "Pavardenis", "Pavarde", "Pavardukas", "Pavardiklis", "Pavardonis", "Pavardanas", "Pavardauskas" };
+  std::vector<std::string> names{ "Vardenis", "Vardas", "Vardukas", "Vardiklis", "Vardonis", "Vardanas", "Vardauskas" };
+  std::vector<std::string> surnames{ "Pavardenis", "Pavarde", "Pavardukas", "Pavardiklis", "Pavardonis", "Pavardanas", "Pavardauskas" };
+  students.reserve(n);
   for (int i = 0; i < n; i++)
   {
     Student student;
     int random = generateRandomInt(0, 6);
-    auto namesIterator = names.begin();
-    std::advance(namesIterator, random);
-    student.name = *namesIterator;
-
+    student.setName(names[random]);
     random = generateRandomInt(0, 6);
-    auto surnamesIterator = surnames.begin();
-    std::advance(surnamesIterator, random);
-    student.surname = *surnamesIterator;
+    student.setSurname(surnames[random]);
 
     for (int j = 0; j < homeworkCount; j++)
     {
       int result = generateRandomInt(0, 10);
-      student.homeworkResults.push_back(result);
+      student.addHomeworkResult(result);
     }
 
-    student.examResult = generateRandomInt(0, 10);
+    student.setExamResult(generateRandomInt(0, 10));
     students.push_back(student);
   }
   auto end = steady_clock::now();
@@ -86,29 +81,29 @@ void generateData(std::list<Student>& students, int n)
   std::cout << n << " studentu generavimas uztruko: " << diff.count() << std::endl;
 }
 
-void generateFile(std::string fileName, std::list<Student> students)
+void generateFile(std::string fileName, std::vector<Student> students)
 {
   auto start = steady_clock::now();
   std::ofstream res(fileName.c_str());
   res << std::left
-    << std::setw(15) << "Vardas"
-    << std::setw(17) << "Pavarde";
-  for (int i = 1; i <= students.front().homeworkResults.size(); i++)
+      << std::setw(15) << "Vardas"
+      << std::setw(17) << "Pavarde";
+  for (int i = 1; i <= students.front().getHomeworkResultsCount(); i++)
   {
-    res << "ND" << std::setw(5) << i << ' ';
+    res <<  "ND" << std::setw(5) << i << ' ';
   }
   res << "Egz." << std::endl;
-
+  
   for (Student student : students)
   {
     std::ostringstream line;
-    line << std::left << std::setw(15) << student.name
-      << std::setw(17) << student.surname;
-    for (int result : student.homeworkResults)
+    line << std::left << std::setw(15) << student.getName()
+        << std::setw(17) << student.getSurname();
+    for (int result : student.getHomeworkResults())
     {
       line << std::setw(8) << result;
     }
-    line << student.examResult << std::endl;
+    line << student.getExamResult() << std::endl;
     res << line.str();
   }
   res.close();

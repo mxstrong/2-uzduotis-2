@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <chrono>
 #include <iostream>
 #include <filesystem>
 #include "Student.h"
@@ -13,7 +14,7 @@ using namespace std::chrono;
 int main()
 {
   auto start = steady_clock::now();
-  std::list<Student> students;
+  std::vector<Student> students;
   bool toBenchmark = chooseToBenchmark(students);
   if (toBenchmark)
   {
@@ -35,17 +36,17 @@ int main()
     {
       readDataFromInput(students);
     }
-    std::list<Student> badStudents;
+    std::vector<Student> badStudents;
 
-    std::string final = chooseFinal();
+    Student::setMedianOrAverage();
 
     sortStudents(students);
 
-    divideStudents(students, badStudents, final);
+    divideStudents(students, badStudents);
 
-    printResultsToFile(students, "pazangus.txt", final);
-    printResultsToFile(badStudents, "nepazangus.txt", final);
-
+    printResultsToFile(students, "pazangus.txt");
+    printResultsToFile(badStudents, "nepazangus.txt");
+    
   }
 
   auto end = steady_clock::now();

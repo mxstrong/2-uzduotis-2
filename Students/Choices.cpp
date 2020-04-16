@@ -1,7 +1,7 @@
 #include "Choices.h"
 #include "Benchmark.h"
 
-bool chooseToBenchmark(std::list<Student>& students)
+bool chooseToBenchmark(std::vector<Student>& students)
 {
   std::string toDoBenchmark = "";
 
@@ -15,23 +15,6 @@ bool chooseToBenchmark(std::list<Student>& students)
     }
   }
   return true;
-}
-
-std::string chooseFinal()
-{
-  std::string final = "";
-  bool badInput = false;
-
-  do
-  {
-    if (badInput) {
-      std::cout << "Pasirinkote negalima pasirinkima. Galimi pasirinkimai: vidurkis, mediana" << std::endl;
-    }
-    std::cout << "Pasirinkite galutini bala (vidurkis / mediana)" << std::endl;
-    std::cin >> final;
-    badInput = !(final.compare("vidurkis") == 0 || final.compare("mediana") == 0);
-  } while (badInput);
-  return final;
 }
 
 std::string chooseInputSource()
