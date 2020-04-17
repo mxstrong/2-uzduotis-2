@@ -28,8 +28,8 @@
         * Pasirinkite ką naudoti galutinio balo skaičiavimui (vidurkį ar medianą).
         
 # Versijų istorija:
-# [Versija v1.1](https://github.com/mxstrong/2-uzduotis/releases/tag/v1.1)
-Programa buvo pertvarkyta, kad vietoj struktūtų būtų naudojamos klasės. Makefile buvo atnaujintas, kad būtų galima pasirinkti kitą kompiliatorių, o ne tik Clang, kuris naudojamas pagal nutylėjimą ir taip pridėta galimybė perduoti kompiliatoriui vėliavėles. Atitinkamai atnaujinta įdiegimo intrukcija.
+# [Versija v1.1](https://github.com/mxstrong/2-uzduotis-2/releases/tag/v1.1)
+Programa buvo pertvarkyta, kad vietoj struktūtų būtų naudojamos klasės. Makefile buvo atnaujintas, kad būtų galima pasirinkti kitą kompiliatorių, o ne tik Clang, kuris naudojamas pagal nutylėjimą ir taip pridėta galimybė perduoti kompiliatoriui vėliavėles. Atitinkamai atnaujinta įdiegimo intrukcija. Pertvarkytas README.md failas, kad būtų patogiau jį skaityti.
 
 ## Realizacijų su struktūromis ir klasėmis spartos palyginimas naudojant skirtingas optimizavimo vėlevėles:
 
