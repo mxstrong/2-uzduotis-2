@@ -1,5 +1,5 @@
 CC = clang++
-CFLAGS = -O1
+CFLAGS = -O0
 Students: Benchmark Choices PrintResults Random ReadData Student
 	$(CC) -std=c++17 -o Students $(CFLAGS) Main.cpp Benchmark.o Choices.o PrintResults.o Random.o ReadData.o Student.o
 Benchmark:
