@@ -193,3 +193,39 @@ std::ofstream& operator << (std::ofstream& out, Student& student)
   out << line.str();
   return out;
 }
+
+bool operator == (Student& student1, Student& student2)
+{
+  return student1.examResult == student2.examResult && 
+         student1.name == student2.name && 
+         student1.surname == student2.surname && 
+         student1.homeworkResults == student2.homeworkResults;
+}
+
+bool operator != (Student& student1, Student& student2)
+{
+  return student1.examResult != student2.examResult ||
+    student1.name != student2.name ||
+    student1.surname != student2.surname ||
+    student1.homeworkResults != student2.homeworkResults;
+}
+
+bool operator > (Student& student1, Student& student2)
+{
+  return student1.getFinal() > student2.getFinal();
+}
+
+bool operator >= (Student& student1, Student& student2)
+{
+  return student1.getFinal() >= student2.getFinal();
+}
+
+bool operator < (Student& student1, Student& student2)
+{
+  return student1.getFinal() < student2.getFinal();
+}
+
+bool operator <= (Student& student1, Student& student2)
+{
+  return student1.getFinal() <= student2.getFinal();
+}

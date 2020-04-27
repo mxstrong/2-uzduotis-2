@@ -40,6 +40,12 @@ public:
   friend std::istream& operator >> (std::istream& in, Student& student);
   friend std::istringstream& operator >> (std::istringstream& input, Student& student);
   friend std::ofstream& operator << (std::ofstream& out, Student& student);
+  friend bool operator == (Student& student1, Student& student2);
+  friend bool operator != (Student& student1, Student& student2);
+  friend bool operator > (Student& student1, Student& student2);
+  friend bool operator >= (Student& student1, Student& student2);
+  friend bool operator < (Student& student1, Student& student2);
+  friend bool operator <= (Student& student1, Student& student2);
 };
 
 
