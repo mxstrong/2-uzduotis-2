@@ -49,8 +49,8 @@ O3 | 100000 | 9.23115s | 2.13202s | 0.53676s | 0.0755792s | 0.536876s | 0.542889
 O3 | 1000000 | 26.8457s | 6.41903s | 51.6167s | 6.9785s | 9.39205s | 10.1993s | 111.758s
 
 ### Realizacija su klasėmis
-Optimizavimo lygis | Studentų kiekis | Studentų generavimas | Failų generavimas | Studentų rikiavimas | Studentų dalijimas | Pažangių studentų surašymas į failą | Nepažangių studentų surašymas į failą | Visas programos veikimo laikas
------------------- | --------------- | -------------------- | ----------------- | ------------------- | ------------------ | ------------------------------------- | ------------------------------------- | ------------------------------
+Optimizavimo lygis | Studentų kiekis | Studentų generavimas | Failų generavimas | Studentų rikiavimas | Studentų dalijimas | Pažangių studentų surašymas į failą | Nepažangių studentų surašymas į failą | Visas programos veikimo laikas | Paleidžiamojo failo dydis
+------------------ | --------------- | -------------------- | ----------------- | ------------------- | ------------------ | ------------------------------------- | ------------------------------------- | ------------------------------ | -------------------------
 O0 | 100000 | 6.75161s | 1.46916s | 0.680596s | 0.105881s | 0.533922s | 0.510977s | 10.0971s | 464KB
 O0 | 1000000 | 48.0846s | 10.7352s | 39.8295s | 3.88768s | 8.6775s | 8.72335s | 120.289s | 464KB
 O1 | 100000 | 1.13401s | 0.407084s | 0.531654s | 0.052746s | 0.453532s | 0.441661s | 3.05413s | 403KB
