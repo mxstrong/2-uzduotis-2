@@ -37,16 +37,16 @@ Programa buvo pertvarkyta, kad vietoj struktūtų būtų naudojamos klasės. Mak
 ## Realizacijų su struktūromis ir klasėmis spartos palyginimas naudojant skirtingas optimizavimo vėlevėles:
 
 ### Realizacija su struktūromis
-Optimizavimo lygis | Studentų kiekis | Studentų generavimas | Failų generavimas | Studentų rikiavimas | Studentų dalijimas | Pažangių studentų surašymas į failą | Nepažangių studentų surašymas į failą | Visas programos veikimo laikas
------------------- | --------------- | -------------------- | ----------------- | ------------------- | ------------------ | ------------------------------------- | ------------------------------------- | ------------------------------
-O0 | 100000 | 8.79207s | 1.8715s | 0.539056s | 0.075302s | 0.529118s | 0.516372s | 12.3711s
-O0 | 1000000 | 99.8932s | 23.5658s | 36.126s | 4.724s | 9.27253s | 9.1843s | 183.434s
-O1 | 100000 | 2.5265s | 0.580496s | 0.534772s | 0.0681022s | 0.506144s | 0.496437s | 4.75348s
-O1 | 1000000 | 54.0644s | 12.2552s | 6.50643s | 0.73036s | 6.34312s | 6.27112s | 86.5149s
-O2 | 100000 | 2.53614s | 0.55653s | 0.527959s | 0.065899s | 0.502331s | 0.490639s | 4.71863s
-O2 | 1000000 | 47.3382s | 10.823s | 7.01431s | 1.41166s | 5.13762s | 5.13161s | 77.2176s
-O3 | 100000 | 9.23115s | 2.13202s | 0.53676s | 0.0755792s | 0.536876s | 0.542889s | 13.1272s
-O3 | 1000000 | 26.8457s | 6.41903s | 51.6167s | 6.9785s | 9.39205s | 10.1993s | 111.758s
+Optimizavimo lygis | Studentų kiekis | Studentų generavimas | Failų generavimas | Studentų rikiavimas | Studentų dalijimas | Pažangių studentų surašymas į failą | Nepažangių studentų surašymas į failą | Visas programos veikimo laikas | Paleidžiamojo failo dydis
+------------------ | --------------- | -------------------- | ----------------- | ------------------- | ------------------ | ------------------------------------- | ------------------------------------- | ------------------------------ | -------------------------
+O0 | 100000 | 6.73916s | 1.45621s | 0.570331s | 0.077503s | 0.531293s | 0.538999s | 9.95746s | 458KB
+O0 | 1000000 | 83.8462s | 22.1545s | 6.72674s | 0.749255s | 5.87053s | 5.83533s | 125.564s | 458KB
+O1 | 100000 | 3.50226s | 1.15645s | 0.40941s | 0.0584391s | 0.466137s | 0.459245s | 6.09157s | 400KB
+O1 | 1000000 | 24.4713s | 10.6706s | 35.6506s | 4.76623s | 6.70195s | 8.54418s | 91.113s | 400KB
+O2 | 100000 | 1.21889s | 0.329366s | 0.143611s | 0.0210778s | 0.342192s | 0.353305s | 2.43204s | 429KB
+O2 | 1000000 | 39.6863s | 11.0793s | 32.5561s | 4.47717s | 6.89511s | 6.29319s | 101.217s | 429KB
+O3 | 100000 | 2.93946s | 0.765429s | 0.164651s | 0.0256045s | 0.36576s | 0.37604s | 4.66552s | 440KB
+O3 | 1000000 | 13.9859s | 5.0145s | 1.54468s | 0.249171s | 3.51965s | 4.06141s | 28.5309s | 440KB
 
 ### Realizacija su klasėmis
 Optimizavimo lygis | Studentų kiekis | Studentų generavimas | Failų generavimas | Studentų rikiavimas | Studentų dalijimas | Pažangių studentų surašymas į failą | Nepažangių studentų surašymas į failą | Visas programos veikimo laikas | Paleidžiamojo failo dydis
