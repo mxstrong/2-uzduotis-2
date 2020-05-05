@@ -28,6 +28,9 @@
         * Pasirinkite ką naudoti galutinio balo skaičiavimui (vidurkį ar medianą).
         
 # Versijų istorija:
+# [Versija v1.2.1](https://github.com/mxstrong/2-uzduotis-2/releases/tag/v1.2.1)
+Programoje pridėti visi pagal trijų taisyklę reikalingi komponentai: destruktorius, copy assignmnent operatorius ir copy konstruktorius. Sutvarkyta programos veikimo laiko analizė, kur buvo lyginamos programos versijos su struktūromis ir su klasėmis, analizė taip pat papildyta paleidžiamųjų failų dydžiais.
+
 # [Versija v1.2](https://github.com/mxstrong/2-uzduotis-2/releases/tag/v1.2)
 Programoje Student klasei buvo perkrauti operatoriai, kurie ateityje gali būti naudingi programos naudotojams.
 
@@ -37,28 +40,28 @@ Programa buvo pertvarkyta, kad vietoj struktūtų būtų naudojamos klasės. Mak
 ## Realizacijų su struktūromis ir klasėmis spartos palyginimas naudojant skirtingas optimizavimo vėlevėles:
 
 ### Realizacija su struktūromis
-Optimizavimo lygis | Studentų kiekis | Studentų generavimas | Failų generavimas | Studentų rikiavimas | Studentų dalijimas | Pažangių studentų surašymas į failą | Nepažangių studentų surašymas į failą | Visas programos veikimo laikas
------------------- | --------------- | -------------------- | ----------------- | ------------------- | ------------------ | ------------------------------------- | ------------------------------------- | ------------------------------
-O0 | 100000 | 8.79207s | 1.8715s | 0.539056s | 0.075302s | 0.529118s | 0.516372s | 12.3711s
-O0 | 1000000 | 99.8932s | 23.5658s | 36.126s | 4.724s | 9.27253s | 9.1843s | 183.434s
-O1 | 100000 | 2.5265s | 0.580496s | 0.534772s | 0.0681022s | 0.506144s | 0.496437s | 4.75348s
-O1 | 1000000 | 54.0644s | 12.2552s | 6.50643s | 0.73036s | 6.34312s | 6.27112s | 86.5149s
-O2 | 100000 | 2.53614s | 0.55653s | 0.527959s | 0.065899s | 0.502331s | 0.490639s | 4.71863s
-O2 | 1000000 | 47.3382s | 10.823s | 7.01431s | 1.41166s | 5.13762s | 5.13161s | 77.2176s
-O3 | 100000 | 9.23115s | 2.13202s | 0.53676s | 0.0755792s | 0.536876s | 0.542889s | 13.1272s
-O3 | 1000000 | 26.8457s | 6.41903s | 51.6167s | 6.9785s | 9.39205s | 10.1993s | 111.758s
+Optimizavimo lygis | Studentų kiekis | Studentų generavimas | Failų generavimas | Studentų rikiavimas | Studentų dalijimas | Pažangių studentų surašymas į failą | Nepažangių studentų surašymas į failą | Visas programos veikimo laikas | Paleidžiamojo failo dydis
+------------------ | --------------- | -------------------- | ----------------- | ------------------- | ------------------ | ------------------------------------- | ------------------------------------- | ------------------------------ | -------------------------
+O0 | 100000 | 6.73916s | 1.45621s | 0.570331s | 0.077503s | 0.531293s | 0.538999s | 9.95746s | 458KB
+O0 | 1000000 | 83.8462s | 22.1545s | 6.72674s | 0.749255s | 5.87053s | 5.83533s | 125.564s | 458KB
+O1 | 100000 | 3.50226s | 1.15645s | 0.40941s | 0.0584391s | 0.466137s | 0.459245s | 6.09157s | 400KB
+O1 | 1000000 | 24.4713s | 10.6706s | 35.6506s | 4.76623s | 6.70195s | 8.54418s | 91.113s | 400KB
+O2 | 100000 | 1.21889s | 0.329366s | 0.143611s | 0.0210778s | 0.342192s | 0.353305s | 2.43204s | 429KB
+O2 | 1000000 | 39.6863s | 11.0793s | 32.5561s | 4.47717s | 6.89511s | 6.29319s | 101.217s | 429KB
+O3 | 100000 | 2.93946s | 0.765429s | 0.164651s | 0.0256045s | 0.36576s | 0.37604s | 4.66552s | 440KB
+O3 | 1000000 | 13.9859s | 5.0145s | 1.54468s | 0.249171s | 3.51965s | 4.06141s | 28.5309s | 440KB
 
 ### Realizacija su klasėmis
-Optimizavimo lygis | Studentų kiekis | Studentų generavimas | Failų generavimas | Studentų rikiavimas | Studentų dalijimas | Pažangių studentų surašymas į failą | Nepažangių studentų surašymas į failą | Visas programos veikimo laikas
------------------- | --------------- | -------------------- | ----------------- | ------------------- | ------------------ | ------------------------------------- | ------------------------------------- | ------------------------------
-O0 | 100000 | 2.97253s | 0.693766s | 0.702667s | 0.0724155s | 0.506103s | 0.495282s | 5.48166s
-O0 | 1000000 | 55.219s | 15.2347s | 8.82869s | 0.969558s | 5.90437s | 6.45459s | 92.9973s
-O1 | 100000 | 6.58311s | 1.34273s | 1.04617s | 0.200828s | 1.15753s | 0.624s | 10.9985s
-O1 | 1000000 | 29.8749s | 7.23805s | 9.06979s | 0.727013s | 6.26406s | 6.86356s | 60.3589s
-O2 | 100000 | 4.25523s | 0.95603s | 0.66821s | 0.08555s | 0.524508s | 0.517556s | 7.04778s
-O2 | 1000000 | 27.4779s | 7.14568s | 8.59512s | 0.738729s | 6.36322s | 6.22027s | 56.9681s
-O3 | 100000 | 3.40846s | 0.787401s | 0.709763s | 0.0746906s | 0.509482s | 0.505135s | 6.03558s
-O3 | 1000000 | 34.6857s | 7.00862s | 9.2618s | 0.754081s | 5.7023s | 5.79412s | 63.5294s
+Optimizavimo lygis | Studentų kiekis | Studentų generavimas | Failų generavimas | Studentų rikiavimas | Studentų dalijimas | Pažangių studentų surašymas į failą | Nepažangių studentų surašymas į failą | Visas programos veikimo laikas | Paleidžiamojo failo dydis
+------------------ | --------------- | -------------------- | ----------------- | ------------------- | ------------------ | ------------------------------------- | ------------------------------------- | ------------------------------ | -------------------------
+O0 | 100000 | 6.75161s | 1.46916s | 0.680596s | 0.105881s | 0.533922s | 0.510977s | 10.0971s | 464KB
+O0 | 1000000 | 48.0846s | 10.7352s | 39.8295s | 3.88768s | 8.6775s | 8.72335s | 120.289s | 464KB
+O1 | 100000 | 1.13401s | 0.407084s | 0.531654s | 0.052746s | 0.453532s | 0.441661s | 3.05413s | 403KB
+O1 | 1000000 | 45.4831s | 17.251s | 6.96617s | 0.944574s | 5.00794s | 5.84517s | 81.8324s | 403KB
+O2 | 100000 | 1.221s | 0.339112s | 0.191211s | 0.0227152s | 0.35602s | 0.417743s | 2.57344s | 436KB
+O2 | 1000000 | 23.3462s | 7.21759s | 33.1877s | 4.55205s | 5.68103s | 6.86263s | 81.0308s | 436KB
+O3 | 100000 | 1.22099s | 0.331038s | 0.168848s | 0.219151s | 0.442612s | 0.360744s | 2.5702s | 446KB
+O3 | 1000000 | 31.9108s | 9.31849s | 2.96631s | 0.552289s | 3.71955s | 4.761s | 53.4402s | 446KB
 
 # [Versija v1.0.1](https://github.com/mxstrong/2-uzduotis/releases/tag/v1.0.1)
 Buvo atnaujinta programos sąsaja su vartotoju komandinėje eilutėje, taip pat minimaliai atnaujinta programos veikimo laiko analizė. Buvo sukurti nauji Makefile tam, kad programa veiktų Unix tipo sistemose. Sukūrus Makefile ir atnaujinus vartotojo sąsają atitinkamai buvo atnaujintos programos įdiegimo ir naudojimo instrukcijos.

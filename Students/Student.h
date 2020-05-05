@@ -20,6 +20,8 @@ public:
   Student();
   Student(std::string name, std::string surname);
   Student(std::string name, std::string surname, std::vector<int>& homeworkResults, int examResult);
+  ~Student();
+  Student(const Student& student);
 
   int getHomeworkResultsCount();
   // Calculate final mark using either median or average of homework results.
@@ -37,6 +39,7 @@ public:
   static void setMedianOrAverage();
   void addHomeworkResult(int result);
 
+  Student& operator = (Student student);
   friend std::istream& operator >> (std::istream& in, Student& student);
   friend std::istringstream& operator >> (std::istringstream& input, Student& student);
   friend std::ofstream& operator << (std::ofstream& out, Student& student);
