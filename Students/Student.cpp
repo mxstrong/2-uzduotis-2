@@ -25,6 +25,19 @@ Student::Student(std::string name, std::string surname, std::vector<int>& homewo
   this->examResult = examResult;
 }
 
+Student::~Student()
+{
+  this->homeworkResults.clear();
+}
+
+Student::Student(const Student& student)
+{
+  this->examResult = student.examResult;
+  this->homeworkResults = student.homeworkResults;
+  this->name = student.name;
+  this->surname = student.surname;
+}
+
 float Student::getAverage()
 {
   if (homeworkResults.size() == 0)
@@ -133,6 +146,15 @@ void Student::setMedianOrAverage()
     badInput = !(final.compare("vidurkis") == 0 || final.compare("mediana") == 0);
   } while (badInput);
   Student::medianOrAverage = final;
+}
+
+Student& Student::operator = (Student student)
+{
+  this->examResult = student.examResult;
+  this->homeworkResults = student.homeworkResults;
+  this->name = student.name;
+  this->surname = student.surname;
+  return *this;
 }
 
 std::istream& operator >> (std::istream& in, Student& student)
