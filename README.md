@@ -28,6 +28,9 @@
         * Pasirinkite ką naudoti galutinio balo skaičiavimui (vidurkį ar medianą).
         
 # Versijų istorija:
+# [Versija v1.2.1](https://github.com/mxstrong/2-uzduotis-2/releases/tag/v1.2.1)
+Programoje pridėti visi pagal trijų taisyklę reikalingi komponentai: destruktorius, copy assignmnent operatorius ir copy konstruktorius. Sutvarkyta programos veikimo laiko analizė, kur buvo lyginamos programos versijos su struktūromis ir su klasėmis, analizė taip pat papildyta paleidžiamųjų failų dydžiais.
+
 # [Versija v1.2](https://github.com/mxstrong/2-uzduotis-2/releases/tag/v1.2)
 Programoje Student klasei buvo perkrauti operatoriai, kurie ateityje gali būti naudingi programos naudotojams.
 
