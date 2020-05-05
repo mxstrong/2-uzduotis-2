@@ -5,13 +5,13 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include "Person.h"
 
-class Student
+class Student : public Person
 {
 private:
   int examResult = 0;
   std::vector<int> homeworkResults;
-  std::string name, surname;
   static std::string medianOrAverage;
 
   float getAverage();
