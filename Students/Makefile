@@ -14,5 +14,9 @@ ReadData:
 	$(CC) -std=c++17 -c $(CFLAGS) ReadData.cpp
 Student:
 	$(CC) -std=c++17 -c $(CFLAGS) Student.cpp
+Tests: Benchmark Student PrintResults Random
+	$(CC) -std=c++17 -o Tests Tests.cpp Benchmark.o Student.o PrintResults.o Random.o
+test: Tests 
+	./Tests
 clean:
 	rm *.o Students

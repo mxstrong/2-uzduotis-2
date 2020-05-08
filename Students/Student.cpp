@@ -66,13 +66,13 @@ float Student::getMedian()
 
 float Student::getFinal()
 {
-  if (Student::medianOrAverage == "vidurkis") 
+  if (Student::medianOrAverage == "mediana") 
   {
-    return 0.4 * this->getAverage() + 0.6 * examResult;
+    return 0.4 * this->getMedian() + 0.6 * examResult;
   }
   else 
   {
-    return 0.4 * this->getMedian() + 0.6 * examResult;
+    return 0.4 * this->getAverage() + 0.6 * examResult;
   }
 }
 
@@ -146,6 +146,14 @@ void Student::setMedianOrAverage()
     badInput = !(final.compare("vidurkis") == 0 || final.compare("mediana") == 0);
   } while (badInput);
   Student::medianOrAverage = final;
+}
+
+void Student::setMedianOrAverage(std::string medianOrAverage)
+{
+  if (medianOrAverage == "vidurkis" || medianOrAverage == "mediana")
+  {
+    Student::medianOrAverage = medianOrAverage;
+  }
 }
 
 Student& Student::operator = (Student student)

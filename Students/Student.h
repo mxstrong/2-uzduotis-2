@@ -37,6 +37,7 @@ public:
   void setFullName(std::string name, std::string surname);
   void setExamResult(int result);
   static void setMedianOrAverage();
+  void setMedianOrAverage(std::string medianOrAverage);
   void addHomeworkResult(int result);
 
   Student& operator = (Student student);
