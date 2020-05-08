@@ -35,7 +35,7 @@ Norint paleisti visus Unit testus pakanka iškviesti komandą `make test`(Unix a
 # [Versija v2.0](https://github.com/mxstrong/2-uzduotis-2/releases/tag/v2.0)
 Naudojant Doxygen sugeneruota programos dokumentacija, ją peržiūrėti galite *doxygen* aplanke. Taip pat Tests.cpp faile pridėti testai pagrindinėms programos dalims naudojant Catch Unit testų karkasą.
 
-!["Testavimo pavyzdys"](Testing.png)
+![Testavimo pavyzdys](Testing.png)
 
 # [Versija v1.5](https://github.com/mxstrong/2-uzduotis-2/releases/tag/v1.5)
 Programoje pridėta nauja abstrakti bazinė klasė Person ir klasė Studentas dabar yra jos išvestinė klasė.
