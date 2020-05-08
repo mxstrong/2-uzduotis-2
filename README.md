@@ -1,6 +1,7 @@
 # Įdiegimo instrukcija:
 1. Atsisiųskite norimą programos versiją iš „Releases“ skilties arba naudodami `git clone https://github.com/mxstrong/2-uzduotis-2.git` nusikopijuokite kodą į pasirinktą aplanką (senesnėms programos versijoms gauti eikite į [repozitoriją](https://github.com/mxstrong/2-uzduotis) arba naudokite `git clone https://github.com/mxstrong/2-uzduotis.git`).
 2. Pasirinkite aplanką, kuriame yra jūsų norima versija ir jį atsidarykite komandinėje eilutėje.
+2.1. Jei naudojate Windows, vietoj `make` visur galite naudoti `nmake`, kuris yra parsisiunčiamas kartu su Visual Studio arba Windows SDK, tereikia jį įtraukti į path. Taip pat galite naudoti ir `make` parsisiuntę Git Bash arba kitą aplinką, kuri palaiko Unix tipo komandas(reikės parsisiųsti ir įtraukti į path ir pačia `make` programą).
 3. Unix sistemoje Paleiskite Makefile naudodami komandą `make` (Reikalingas clang kompiliatorius, jei jo neturite, atsisiųskite iš https://releases.llvm.org/download.html arba nurodykite kitą kompiliatorių: `make CC='[Kompiliatoriaus pavadinimas]'`(pvz. `make CC='g++'`)).
 4. Pasileiskite programą naudodami komandą: `./[Paleidžiamojo failo vardas]` (Students, Deque, Deque-2, List, List-2, Vector arba Vector-2).
 
@@ -26,8 +27,14 @@
      * Jei pasirinkote skaityti iš failo:
         * Įveskite duomenų failo vardą.
         * Pasirinkite ką naudoti galutinio balo skaičiavimui (vidurkį ar medianą).
-        
+
+# Testavimo instrukcija:
+Norint paleisti visus Unit testus užtenka iškviesti komandą `make test`(Unix aplinkoje) arba `nmake test`(Windows aplinkoje).
+
 # Versijų istorija:
+# [Versija v2.0](https://github.com/mxstrong/2-uzduotis-2/releases/tag/v2.0)
+Naudojant Doxygen sugeneruota programos dokumentacija, ją peržiūrėti galite *doxygen* aplanke. Taip pat Tests.cpp faile pridėti testai pagrindinėms programos dalims naudojant Catch Unit testų karkasą.
+
 # [Versija v1.5](https://github.com/mxstrong/2-uzduotis-2/releases/tag/v1.5)
 Programoje pridėta nauja abstrakti bazinė klasė Person ir klasė Studentas dabar yra jos išvestinė klasė.
 
